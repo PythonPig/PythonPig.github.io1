@@ -9,17 +9,22 @@ type: page
 * content
 {:toc}
 
-## 工具
+## 导航
 
-* [box-shadow generator](http://www.cssmatic.com/box-shadow)
+[SecWeb](https://thief.one/SecWeb/)
+[渗透师导航](https://www.shentoushi.top)
 
-    生成 box-shadow 的工具。
+## 安全
 
-## other articles
-
-- [<head> Cheat Sheet](http://gethead.info/)
-* [将footer固定在页面底部的实现方法](https://segmentfault.com/a/1190000004453249)
-- [HTML5 视频 By Pete LePage](https://www.html5rocks.com/zh/tutorials/video/basics/)
+* [Vulhub](https://vulhub.org/#/environments/)
+* [离别歌](https://www.leavesongs.com)
+* [klion's blog](https://klionsec.github.io)
+* [SecWiki](https://sec-wiki.com)
+* [瓦都剋](http://byd.dropsec.xyz)
+* [Ph0rse's blog](http://ph0rse.me)
+* [Hello_C技术博客](http://zjw.dropsec.xyz)
+* [RcoIl的窝](http://rcoil.me)
+* [nMask's Blog](https://thief.one)
 
 ## Comments
 
