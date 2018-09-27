@@ -11,8 +11,7 @@ author: PythonPig
 
 ### \#0x00 写在前面
 最近在做项目时用到了Vmware虚拟机，主机是windows，虚拟机是ubuntu，网络模式选的是NAT，由于通信两端的网络状况非常不好，为了检测网络是否中断以便客户端及时重连，使用了TCP keepalive机制。但是发现，虚拟机发送的keepalive包并没有到达对端服务器，但是虚拟机收到了来自对端服务器的keepalive response（response的源IP为服务器端IP地址），如下图：
-![avatar](https://github.com/PythonPig/pythonpig.github.io/blob/master/images/keepalive.png?raw=true)
-
+![](https://github.com/PythonPig/pythonpig.github.io/blob/master/images/keepalive.png?raw=true)
 
 
 
