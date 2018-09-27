@@ -11,8 +11,8 @@ type: page
 
 ## 导航
 
-[SecWeb](https://thief.one/SecWeb/)
-[渗透师导航](https://www.shentoushi.top)
+* [SecWeb](https://thief.one/SecWeb/)
+* [渗透师导航](https://www.shentoushi.top)
 
 ## 安全
 
