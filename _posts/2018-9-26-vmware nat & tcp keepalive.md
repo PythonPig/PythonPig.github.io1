@@ -2,7 +2,7 @@
 layout: post
 title: 在vmware nat模式下使用tcp keepalive的坑（Vmware nat的实现方式）
 date: 2017-09-26 23:30:00
-tags: vmware nat
+tags: vmware nat keepalive
 categories: TCP/IP
 author: PythonPig
 ---
