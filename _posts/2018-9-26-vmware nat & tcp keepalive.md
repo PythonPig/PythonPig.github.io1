@@ -16,8 +16,11 @@ author: PythonPig
 
 
 
-产生TCP keepalive的python代码如下(ubuntu14.04 x64 python2.7)：
+写了个简单的python代码产生TCP keepalive包(ubuntu14.04 x64 python2.7)：
 ```python
+#usage:python tcp_keepalive.py
+#>"test"
+
 #-*- coding:utf-8 -*-
 
 import socket
