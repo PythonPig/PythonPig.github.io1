@@ -55,6 +55,8 @@ tag_dir: tag/
 # excerpt
 excerpt_separator: "\n\n\n\n"
 
+url: "https://pythonpig.github.io"
+
 plugins:
   - jekyll-sitemap
 
