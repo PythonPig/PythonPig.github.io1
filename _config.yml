@@ -57,12 +57,13 @@ excerpt_separator: "\n\n\n\n"
 
 url: "https://pythonpig.github.io"
 
-plugins:
+plugins: # previously gems
+  - jekyll-feed
+  - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-paginate
 
 # paginate
-gems: 
-  - jekyll-paginate 
-  - jekyll-sitemap
-paginate: 6
+# gems: [jekyll-paginate]
+# paginate: 6
 
