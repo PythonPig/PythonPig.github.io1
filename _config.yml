@@ -64,6 +64,8 @@ plugins: # previously gems
   - jekyll-paginate
 
 # paginate
-# gems: [jekyll-paginate]
-# paginate: 6
+gems: [jekyll-paginate]
+paginate: 6
+
+gems: [jekyll-sitemap]
 
