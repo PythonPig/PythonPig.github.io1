@@ -6,7 +6,7 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: PythonPig
+title: PythonPig's Blog
 brief-intro: 移动通信  TCP/IP  WEB  Hacker  伪码农
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://pythonpig.github.io" # the base hostname & protocol for your site
