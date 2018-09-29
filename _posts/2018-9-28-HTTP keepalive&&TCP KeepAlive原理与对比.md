@@ -28,17 +28,17 @@ HTTP协议是一种无状态的“请求-应答”协议，传输层基于TCP协
 
 凡事有利就有弊，HTTP虽然可以减少TCP建立次数，但是也带来了如下问题：
 
-1、客户端/服务端协商及支持情况
+##### 1、客户端/服务端协商及支持情况
 前面讲到客户端和服务端都可以关闭一条TCP连接，因此如何使客户端和服务端都不关闭一条需要KeepAlive的连接呢？HTTP协议在协议头中提供了特定的字段来解决这个问题，这个字段就是"Connection"，如果Connection的值是“Keep-Alive”时，就表示这条连接是需要KeepAlive的。但并不是消息头中包含"Connection: Keep-Alive"字段的HTTP连接就一定可以被KeepAlive，前提条件是客户端和服务端都支持KeepAlive，如下图所示，虽然HTTP消息中包含"Connection: Keep-Alive"字段，但由于客户端不支持，在完成HTTP“请求-应答”后，客户端发起了关闭TCP连接的请求（FIN包）。
 
 ![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/HTTP%20KeepAlive%20TCP%20KeepAlive/%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8D%E6%94%AF%E6%8C%81%EF%BC%8Ckeepalive%E5%A4%B4%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8.jpeg?raw=true)
 
-2、KeepAlive占用TCP连接资源问题
+##### 2、KeepAlive占用TCP连接资源问题
 当HTTP连接都使用KeepAlive之后，HTTP服务器会产生大量的TCP连接从而占用服务器资源，别有用心的人甚至可以利用这个特性进行DOS攻击。为了解决这个问题，HTTP服务器都有一个KeepAlive timeout的参数，该参数表示：从客户端/服务端最后一次通信开始，经过timeout秒之后，服务端主动关闭该TCP连接。Apache/2.4.23 (Win32) 中KeepAlivetimeout的值默认为5秒，5秒过后服务端主动关闭TCP连接，如下图所示。
 
 ![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/HTTP%20KeepAlive%20TCP%20KeepAlive/%E6%9C%8D%E5%8A%A1%E7%AB%AFkeepalive%E8%B6%85%E6%97%B6%E5%85%B3%E9%97%AD%E8%BF%9E%E6%8E%A5-5s.jpeg?raw=true)
 
-3、如何知道HTTP数据传送完毕
+##### 3、如何知道HTTP数据传送完毕
 在不使用长连接时，每接受一次数据TCP连接都会断开（客户端读数据时会返回EOF（-1）），因此客户端很容易知道判断数据是否接收完毕，但使用长连接时判断数据是否接收完毕就出现了困难，现在有两种解决办法：
 1）Content-Length：xxx
 如果客户端请求的是静态资源（服务器在response时已经知道资源的大小），则在HTTP response的头部携带Content-Length字段，表明本次回复数据的长度，客户端解析这个字段就可以判断数据是否传输完毕。
