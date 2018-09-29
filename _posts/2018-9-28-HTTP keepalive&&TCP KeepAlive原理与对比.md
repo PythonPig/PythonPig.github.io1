@@ -9,13 +9,13 @@ author: PythonPig
 * content
 {:toc}
 
-### \#0x00 写在前面
+##### \#0x00 写在前面
 前面写了点关于TCP KeepAlive的文章[在vmware nat模式下使用tcp KeepAlive的坑（Vmware nat的实现方式）](https://pythonpig.github.io/2017/09/26/vmware-nat-&-tcp-keepalive/)，今天聊聊HTTP KeepAlive。
 
 
 
 
-### \#0x01 HTTP KeepAlive
+##### \#0x01 HTTP KeepAlive
 HTTP协议是一种无状态的“请求-应答”协议，传输层基于TCP协议，在HTTP 1.0版本时，默认不使用长连接，即：客户端与服务端每一次“请求-应答”都需要新建一个TCP连接，传输完数据后断开连接，过程如下图所示，若要保持长连接，需要在请求头中加上Connection: keep-alive，而HTTP/1.1默认是支持长连接的。
 
 ![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/HTTP%20KeepAlive%20TCP%20KeepAlive/%E9%9D%9Ekeepalive%E4%B8%A4%E6%AC%A1%E8%AF%B7%E6%B1%82.jpeg?raw=true)
@@ -49,7 +49,7 @@ HTTP协议是一种无状态的“请求-应答”协议，传输层基于TCP协
 
 图中每个分块的第一行是分块内容的大小，十六进制表示，后面跟CRLF(\r\n)，第一行本身以及分块内容末尾的CRLF不计入大小。第二行是分块内容，后面也跟CRLF。最后一个分块虽然大小为零，但是必不可少，表示分块的结束，后面也跟CRLF，同时内容为空。最后，响应体以CRLF结束。
 
-### \#0x02 HTTP KeepAlive与TCP KeepAlive
+##### \#0x02 HTTP KeepAlive与TCP KeepAlive
 
 TCP KeepAlive是探测/保活机制，用于探测对端的状态及网络情况，当然也有保活功能，如防止nat超时；HTTP KeepAlive是共用TCP连接的机制，两者的作用和实现机制都不同。
 
@@ -61,11 +61,11 @@ tcp_keepalive_probes  9  探测尝试的次数。如果第1次探测包就收到
 '''
 HTTP KeepAlive相关的参数只有一个keepalive timeout，超过timeout时间没有数据传输后则关闭当前连接。
 
-### \#0x03 总结
+##### \#0x03 总结
 
 虽然HTTP底层的传输协议是TCP，但HTTP KeepAlive与TCP KeepAlive是两个不同的概念，HTTP KeepAlive timeout的时间一般是几秒到几十秒，完全没有到触发TCP KeepAlive发送保活探测包的条件（默认传输完最后一个数据包到发送第一个保活探测包的时间间隔是7200s）。
 
-### \#0x04 参考
+##### \#0x04 参考
 * [HTTP Keep-Alive模式](http://www.cnblogs.com/skynet/archive/2010/12/11/1903347.html)
 * [HTTP keep-alive详解](https://blog.csdn.net/xiaoduanayu/article/details/78386508)
 * [wireshark抓包简单查看HTTP keep-alive原理](https://blog.csdn.net/Kingson_Wu/article/details/72512825)
