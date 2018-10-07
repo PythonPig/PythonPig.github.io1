@@ -1,6 +1,6 @@
 ---
 layout: post
-title: HTTP KeepAlive && TCP KeepAlive原理与对比
+title: HTTP KeepAlive和TCP KeepAlive原理与对比
 date: 2017-09-28 23:30:00
 tags: HTTP TCP keepalive
 categories: TCP/IP
