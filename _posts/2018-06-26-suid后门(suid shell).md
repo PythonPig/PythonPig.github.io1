@@ -10,7 +10,7 @@ author: PythonPig
 {:toc}
 suid shell 是可以以shell所有者权限运行的shell。 
 
-#### \#0x00 suid shell生成
+### \#0x00 suid shell生成
 
 suid shell简单代码：  
 ```c
@@ -30,7 +30,7 @@ chmod 4755 bashwrap  （赋予suid权限）
 
 此时bashwrap就是一个suid shell  
 
-#### \#0x01 suid shell调用（PHP环境）
+### \#0x01 suid shell调用（PHP环境）
 
 把suid shell隐藏在目标系统上(假设放在/tmp/目录下)，通过web的方式调用（假设webshell权限较低，希望使用suid shell执行root命令），假如web环境是PHP，在web目录下上传如下PHP文件：  
 ```php 
@@ -63,7 +63,7 @@ if(isset($_GET['path']) && isset($_GET['cmd'])){
 1、webshell的权限较低，但是已经完成了提权，可以使用上述方式留下root后门；  
 2、利用webshell提权时，把exp上传至/tmp/exp，访问http://x.x.x.x/exploit.php?path=/tmp/exp&cmd=id，若提权成功，则会以root权限执行命令id。  
 
-#### \#0x02 suid shell调用（非PHP环境）  
+### \#0x02 suid shell调用（非PHP环境）  
 
 在非PHP环境下使用如下代码生成suid shell
 ```c
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
 
 然后在低权限的web shell命令执行处执行：./bashwrap beroot cat /etc/shadow即可以root权限执行cat /etc/shadow  
 
-#### \#0x03 suid介绍
+### \#0x03 suid介绍
 
 当s这个标志出现在文件所有者的x权限上时，此时就被称为Set UID，简程SUID。  
 例如执行ls -l /bin/su可以看到   
@@ -110,6 +110,6 @@ int main(int argc, char *argv[])
 ``` 
 
 SUID的关键作用体现在第四句，SUID的目的就是：让本来没有相应权限的用户运行这个程序时，可以访问他没有权限访问的资源。  
-#### \#0x04 参考
+### \#0x04 参考
 [深入Linux文件权限 SUID/SGID/SBIT](https://blog.csdn.net/imkelt/article/details/53054309)  
 文章中部分源代码在前辈代码的基础上略做修改，由于时间久远，现在已经不知道代码摘自何处，若作者看到，请速联系（联系方式见about标签）
