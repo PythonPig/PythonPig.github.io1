@@ -98,9 +98,9 @@ int main(int argc, char *argv[])
 
 当s这个标志出现在文件所有者的x权限上时，此时就被称为Set UID，简程SUID。  
 例如执行ls -l /bin/su可以看到   
-
+![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/HTTP%20KeepAlive%20TCP%20KeepAlive/keepalive%E4%B8%A4%E6%AC%A1%E8%AF%B7%E6%B1%82.jpeg?raw=true)
 执行ls -l /usr/bin/passwd 可以看到     
-
+![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/HTTP%20KeepAlive%20TCP%20KeepAlive/keepalive%E4%B8%A4%E6%AC%A1%E8%AF%B7%E6%B1%82.jpeg?raw=true)
 在文件所有者的x权限上都出现了s权限，那么这个特殊权限的特殊性的作用是什么呢？  
 ```
 1、SUID权限仅对二进制程序有效。  
@@ -111,7 +111,5 @@ int main(int argc, char *argv[])
 
 SUID的关键作用体现在第四句，SUID的目的就是：让本来没有相应权限的用户运行这个程序时，可以访问他没有权限访问的资源。  
 #### \#0x04 参考
-[深入Linux文件权限 SUID/SGID/SBIT](https://blog.csdn.net/imkelt/article/details/53054309) 
+[深入Linux文件权限 SUID/SGID/SBIT](https://blog.csdn.net/imkelt/article/details/53054309)  
 文章中部分源代码在前辈代码的基础上略做修改，由于时间久远，现在已经不知道代码摘自何处，若作者看到，请速联系（联系方式见about标签）
-
-
