@@ -98,9 +98,9 @@ int main(int argc, char *argv[])
 
 当s这个标志出现在文件所有者的x权限上时，此时就被称为Set UID，简程SUID。  
 例如执行ls -l /bin/su可以看到   
-![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/HTTP%20KeepAlive%20TCP%20KeepAlive/keepalive%E4%B8%A4%E6%AC%A1%E8%AF%B7%E6%B1%82.jpeg?raw=true)
+![1](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/suid%20shell/1.jpg?raw=true)
 执行ls -l /usr/bin/passwd 可以看到     
-![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/HTTP%20KeepAlive%20TCP%20KeepAlive/keepalive%E4%B8%A4%E6%AC%A1%E8%AF%B7%E6%B1%82.jpeg?raw=true)
+![2](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/suid%20shell/2.jpg?raw=true)
 在文件所有者的x权限上都出现了s权限，那么这个特殊权限的特殊性的作用是什么呢？  
 ```
 1、SUID权限仅对二进制程序有效。  
