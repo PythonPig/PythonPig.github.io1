@@ -8,9 +8,8 @@ author: PythonPig
 ---
 * content
 {:toc}
-suid shell 是可以以shell所有者权限运行的shell。 
 ![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/suid%20shell/suid%20hack.jpeg?raw=true)  
-
+suid shell 是可以以shell所有者权限运行的shell。 
 ### \#0x00 suid shell生成
 
 suid shell简单代码：  
