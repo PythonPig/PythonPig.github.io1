@@ -16,6 +16,7 @@ type: page
 
 ## 安全
 
+* [3gstudent](https://3gstudent.github.io/3gstudent.github.io/about/)
 * [Vulhub](https://vulhub.org/#/environments/)
 * [离别歌](https://www.leavesongs.com)
 * [klion's blog](https://klionsec.github.io)
