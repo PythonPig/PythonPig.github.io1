@@ -11,7 +11,7 @@ author: PythonPig
 
 ### \#0x00 写在前面
 最近在做项目时用到了Vmware虚拟机，主机是windows，虚拟机是ubuntu，网络模式选的是NAT，由于通信两端的网络状况非常不好，为了检测网络是否中断以便客户端及时重连，使用了TCP keepalive机制。但是发现，虚拟机发送的keepalive包并没有到达对端服务器，但是虚拟机收到了来自对端服务器的keepalive response（response的源IP为服务器端IP地址），如下图：
-![](https://github.com/PythonPig/pythonpig.github.io/blob/master/images/keepalive.png?raw=true)
+![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/vmware%20nat/keepalive.png?raw=true)
 
 
 
@@ -68,13 +68,13 @@ TCP keepalive包不包含任何数据，ACK置位，且满足SEG.SEQ = SND.NXT-1
 sr1(IP(dst="192.168.11.2")/TCP(dport=57212,flags="S"))，
 ```
 如下图：
-![](https://github.com/PythonPig/pythonpig.github.io/blob/master/images/scapy.png?raw=true)
+![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/vmware%20nat/scapy.png?raw=true)
 
 宿主机抓包如下图：
-![](https://github.com/PythonPig/pythonpig.github.io/blob/master/images/%E5%AE%BF%E4%B8%BB%E6%9C%BA%E6%8A%93%E5%8C%85.jpeg?raw=true)
+![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/vmware%20nat/%E5%AE%BF%E4%B8%BB%E6%9C%BA%E6%8A%93%E5%8C%85.jpeg?raw=true)
 
 虚拟机抓包如下图：
-![](https://github.com/PythonPig/pythonpig.github.io/blob/master/images/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%8A%93%E5%8C%85.jpeg?raw=true)
+![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/vmware%20nat/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%8A%93%E5%8C%85.jpeg?raw=true)
 
 通过上面抓包可以发现，在虚拟机只发送TCP SYN包的情况下，宿主机已经完成了与对端服务器的TCP连接（三次握手），**因此可以得出结论：Vmware nat其实是通过代理实现的，而不是通过修改socket 5元组实现的，也就是说Vmware nat 是一个应用层的nat**。Vmware nat在windows上其实是通过vmnat.exe这个应用实现的，其他系统类似。
 
