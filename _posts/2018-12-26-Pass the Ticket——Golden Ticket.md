@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Pass the Ticket——Goldenn Ticket
+title: Pass the Ticket——Golden Ticket
 date: 2018-12-26 23:30:00
 tags: 域渗透
 categories: hack 
