@@ -51,13 +51,13 @@ https://foxglovesecurity.com/2017/08/25/  abusing-token-privileges-for-windows-l
 ```
 whoami /priv
 ```
-例如，普通用户具有的权限如下图
+例如，普通用户具有的权限如下图  
 ![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/渗透技巧——Windows%20Token九种权限的利用/普通用户具有的权限.png?raw=true)
 
-管理员用户具有的权限如下图
+管理员用户具有的权限如下图  
 ![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/渗透技巧——Windows%20Token九种权限的利用/管理员用户具有的权限.png?raw=true)
 
-iis用户具有的权限如下图
+iis用户具有的权限如下图  
 ![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/渗透技巧——Windows%20Token九种权限的利用/iis用户具有的权限.png?raw=true)
 
 Privilege Name项表示具有的权限，State表示权限的状态，我们可以通过WinAPI AdjustTokenPrivileges将权限设置为Disabled或者Enabled
@@ -103,9 +103,9 @@ https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L327
 通常，iis或者sqlserver用户具有该权限
 
 ##### 利用思路
-1、利用NTLM Relay to Local Negotiation获得System用户的Token 可使用开源工具Rotten Potato、lonelypotato或者Juicy Potato
-2、通过WinAPI CreateProcessWithToken创建新进程，传入System用户的Token 具有SeImpersonatePrivilege权限才能创建成功
-3、该Token具有System权限
+1、利用NTLM Relay to Local Negotiation获得System用户的Token 可使用开源工具Rotten Potato、lonelypotato或者Juicy Potato  
+2、通过WinAPI CreateProcessWithToken创建新进程，传入System用户的Token 具有SeImpersonatePrivilege权限才能创建成功  
+3、该Token具有System权限  
 
 可供参考的测试代码：
 https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeImpersonatePrivilege.cpp
@@ -124,9 +124,9 @@ https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L359
 
 ##### 利用思路1
 
-1、利用NTLM Relay to Local Negotiation获得System用户的Token
-2、通过WinAPI CreateProcessAsUser创建新进程，传入System用户的Token
-3、该Token具有System权限
+1、利用NTLM Relay to Local Negotiation获得System用户的Token  
+2、通过WinAPI CreateProcessAsUser创建新进程，传入System用户的Token  
+3、该Token具有System权限  
 
 可供参考的测试代码：
 https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeAssignPrimaryTokenPrivilege.cpp
@@ -134,10 +134,10 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeAssignPr
 代码实现了开启当前进程的SeAssignPrimaryTokenPrivilege权限，调用CreateProcessAsUser，传入当前进程的Token，创建一个进程，配合RottenPotato，可用来从LocalService提权至System权限
 
 ##### 利用思路2
-1、利用NTLM Relay to Local Negotiation获得System用户的Token
-2、通过WinAPI CreateProcess创建一个挂起的新进程，参数设置为CREATE_SUSPENDED
-3、通过WinAPI NtSetInformationProcess将新进程的Token替换为System用户的Token
-4、该Token具有System权限
+1、利用NTLM Relay to Local Negotiation获得System用户的Token  
+2、通过WinAPI CreateProcess创建一个挂起的新进程，参数设置为CREATE_SUSPENDED  
+3、通过WinAPI NtSetInformationProcess将新进程的Token替换为System用户的Token  
+4、该Token具有System权限  
 
 
 
@@ -149,9 +149,9 @@ https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L418
 
 等同于获得了系统的最高权限
 ##### 利用思路
-1、调用LsaLogonUser获得Token
-2、将该Token添加至Local System account组
-3、该Token具有System权限
+1、调用LsaLogonUser获得Token  
+2、将该Token添加至Local System account组  
+3、该Token具有System权限  
 
 可供参考的测试代码：
 https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeTcbPrivilege.cpp
@@ -167,8 +167,8 @@ https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L495
 
 ##### 利用思路
 
-1、读取注册表HKEY_LOCAL_MACHINE\SAM、HKEY_LOCAL_MACHINE\SECURITY和HKEY_LOCAL_MACHINE\SYSTEM
-2、导出当前系统的所有用户hash mimikatz的命令如下：
+1、读取注册表HKEY_LOCAL_MACHINE\SAM、HKEY_LOCAL_MACHINE\SECURITY和HKEY_LOCAL_MACHINE\SYSTEM  
+2、导出当前系统的所有用户hash mimikatz的命令如下：  
 ```
 lsadump::sam /sam:SamBkup.hiv /system:SystemBkup.hiv
 ```
@@ -187,14 +187,14 @@ https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L528
 用来实现恢复操作，对当前系统任意文件具有写权限
 
 ##### 利用思路1
-1、获得SeRestorePrivilege权限，修改注册表HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options
-2、劫持exe文件的启动
-3、实现提权或是作为后门
+1、获得SeRestorePrivilege权限，修改注册表HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options  
+2、劫持exe文件的启动  
+3、实现提权或是作为后门  
 
 ##### 利用思路2
-1、获得SeRestorePrivilege权限，向任意路径写入dll文件
-2、实现dll劫持
-3、实现提权或是作为后门
+1、获得SeRestorePrivilege权限，向任意路径写入dll文件  
+2、实现dll劫持  
+3、实现提权或是作为后门  
 
 可供参考的测试代码：
 https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeRestorePrivilege.cpp
@@ -210,9 +210,9 @@ https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L577
 用来创建Primary Token
 
 ##### 利用思路
-1、通过WinAPI ZwCreateToken创建Primary Token
-2、将Token添加至local administrator组
-3、该Token具有System权限
+1、通过WinAPI ZwCreateToken创建Primary Token  
+2、将Token添加至local administrator组  
+3、该Token具有System权限  
 
 可供参考的测试代码：
 https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeCreateTokenPrivilege.cpp
@@ -230,16 +230,16 @@ https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L626
 
 ##### 利用思路
 
-1、创建驱动文件的注册表
+1、创建驱动文件的注册表  
 
 ```
 reg add hkcu\System\CurrentControlSet\CAPCOM /v ImagePath /t REG_SZ /d "\??\C:\test\Capcom.sys"
 reg add hkcu\System\CurrentControlSet\CAPCOM /v Type /t REG_DWORD /d 1
 ```
-2、加载驱动文件Capcom.sys
-3、Capcom.sys存在漏洞，系统加载后，可从普通用户权限提升至System权限，利用代码可参考： https://github.com/tandasat/ExploitCapcom
-4、获得System权限
-可供参考的测试代码： https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeLoadDriverPrivilege.cpp
+2、加载驱动文件Capcom.sys  
+3、Capcom.sys存在漏洞，系统加载后，可从普通用户权限提升至System权限，利用代码可参考： https://github.com/tandasat/ExploitCapcom  
+4、获得System权限  
+可供参考的测试代码： https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeLoadDriverPrivilege.cpp  
 
 代码实现了开启当前进程的SeLoadDriverPrivilege权限，读取注册表项hkcu\System\CurrentControlSet\CAPCOM，加载驱动文件Capcom.sys
 
@@ -252,14 +252,14 @@ https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L688
 同SeRestorePrivilege类似，对当前系统任意文件具有写权限
 
 ##### 利用思路1
-1、获得SeTakeOwnershipPrivilege权限，修改注册表HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options
-2、劫持exe文件的启动
-3、实现提权或是作为后门
+1、获得SeTakeOwnershipPrivilege权限，修改注册表HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options  
+2、劫持exe文件的启动  
+3、实现提权或是作为后门  
 
 ##### 利用思路2
-1、获得SeTakeOwnershipPrivilege权限，向任意路径写入dll文件
-2、实现dll劫持
-3、实现提权或是作为后门
+1、获得SeTakeOwnershipPrivilege权限，向任意路径写入dll文件  
+2、实现dll劫持  
+3、实现提权或是作为后门  
 
 可供参考的测试代码：
 https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeTakeOwnershipPrivilege.cpp
@@ -280,9 +280,9 @@ https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L736
 用来调试指定进程，包括读写内存，常用作实现dll注入
 
 ##### 利用思路
-1、找到System权限的进程
-2、dll注入
-3、获得System权限
+1、找到System权限的进程  
+2、dll注入  
+3、获得System权限  
 
 可供参考的测试代码：
 https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeDebugPrivilege.cpp
