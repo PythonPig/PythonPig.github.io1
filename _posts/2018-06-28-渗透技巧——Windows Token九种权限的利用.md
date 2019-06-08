@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 【转载】渗透技巧——Windows Token九种权限的利用
-date: 2017-12-21 23:30:00
-tags: 域渗透 privilege escalation
-categories: privilege escalation 
+date: 2018-9-21 23:30:00
+tags: 域渗透 privilege_escalation
+categories: privilege_escalation 
 author: 3gstudent
 ---
 * content
@@ -15,19 +15,19 @@ author: 3gstudent
 
 
 
-那么，普通用户(或者LocalService用户)的特殊Token有哪些可利用方法呢？能否提权？如何判断？
-本文将要结合自己的经验，参考多个开源工具和资料，尝试对这个技巧做总结，分享学习心得
-参考的开源工具和资料：
-Hot Potato： https://github.com/foxglovesec/Potato
-powershell版本Hot Potato： https://github.com/Kevin-Robertson/Tater
-Rotten Potato： https://github.com/breenmachine/RottenPotatoNG
-lonelypotato： https://github.com/decoder-it/lonelypotato
-Juicy Potato： https://github.com/ohpe/juicy-potato
-https://github.com/hatRiot/token-priv
-https://foxglovesecurity.com/2017/08/25/abusing-token-privileges-for-windows-local-privilege-escalation/
-https://foxglovesecurity.com/2016/01/16/hot-potato/
-https://foxglovesecurity.com/2016/09/26/rotten-potato-privilege-escalation-from-service-accounts-to-system/
-https://foxglovesecurity.com/2017/08/25/abusing-token-privileges-for-windows-local-privilege-escalation/
+那么，普通用户(或者LocalService用户)的特殊Token有哪些可利用方法呢？能否提权？如何判断？  
+本文将要结合自己的经验，参考多个开源工具和资料，尝试对这个技巧做总结，分享学习心得  
+参考的开源工具和资料：  
+Hot Potato： https://github.com/foxglovesec/Potato  
+powershell版本Hot Potato： https://github.com/Kevin-Robertson/Tater  
+Rotten Potato： https://github.com/breenmachine/RottenPotatoNG  
+lonelypotato： https://github.com/decoder-it/lonelypotato  
+Juicy Potato： https://github.com/ohpe/juicy-potato  
+https://github.com/hatRiot/token-priv  
+https://foxglovesecurity.com/2017/08/25/  abusing-token-privileges-for-windows-local-privilege-escalation/  
+https://foxglovesecurity.com/2016/01/16/hot-potato/  
+https://foxglovesecurity.com/2016/09/26/  rotten-potato-privilege-escalation-from-service-accounts-to-system/  
+https://foxglovesecurity.com/2017/08/25/  abusing-token-privileges-for-windows-local-privilege-escalation/  
 
 
 ### \#0x01 简介:
@@ -52,10 +52,13 @@ https://foxglovesecurity.com/2017/08/25/abusing-token-privileges-for-windows-loc
 whoami /priv
 ```
 例如，普通用户具有的权限如下图
+![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/渗透技巧——Windows%20Token九种权限的利用/普通用户具有的权限.png?raw=true)
 
 管理员用户具有的权限如下图
+![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/渗透技巧——Windows%20Token九种权限的利用/管理员用户具有的权限.png?raw=true)
 
 iis用户具有的权限如下图
+![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/渗透技巧——Windows%20Token九种权限的利用/iis用户具有的权限.png?raw=true)
 
 Privilege Name项表示具有的权限，State表示权限的状态，我们可以通过WinAPI AdjustTokenPrivileges将权限设置为Disabled或者Enabled
 
