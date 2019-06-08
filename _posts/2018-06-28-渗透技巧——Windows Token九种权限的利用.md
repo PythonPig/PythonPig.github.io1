@@ -4,7 +4,7 @@ title: 【转载】渗透技巧——Windows Token九种权限的利用
 date: 2018-9-21 23:30:00
 tags: 域渗透 privilege_escalation
 categories: privilege_escalation 
-author: 3gstudent
+author: PythonPig
 ---
 * content
 {:toc}
