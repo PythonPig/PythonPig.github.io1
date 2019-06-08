@@ -47,7 +47,7 @@ https://foxglovesecurity.com/2017/08/25/  abusing-token-privileges-for-windows-l
 
 
 ### \#0x02 简要利用思路:
-##### 1、取得了目标的访问权限后，查看可用权限
+#### 1、取得了目标的访问权限后，查看可用权限
 ```
 whoami /priv
 ```
@@ -68,7 +68,7 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnablePrivilegea
 
 代码实现了开启指定权限(SeDebugPrivilege)，并且查看当前用户名称和具有的权限
 
-##### 2、如果包含以下九个权限，我们就可以对其进一步利用
+#### 2、如果包含以下九个权限，我们就可以对其进一步利用
 
 * SeImpersonatePrivilege
 * SeAssignPrimaryPrivilege
@@ -89,7 +89,7 @@ Backup service用户通常具有SeBackupPrivilege和SeRestorePrivilege权限
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L327
 
-##### SeImpersonatePrivilege
+#### SeImpersonatePrivilege
 
 身份验证后模拟客户端(Impersonatea client after authentication)
 
@@ -102,7 +102,7 @@ https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L327
 * 由组件对象模型 (COM) 基础结构启动的并配置为在特定帐户下运行的COM服务器
 通常，iis或者sqlserver用户具有该权限
 
-##### 利用思路
+#### 利用思路
 1、利用NTLM Relay to Local Negotiation获得System用户的Token 可使用开源工具Rotten Potato、lonelypotato或者Juicy Potato  
 2、通过WinAPI CreateProcessWithToken创建新进程，传入System用户的Token 具有SeImpersonatePrivilege权限才能创建成功  
 3、该Token具有System权限  
@@ -117,12 +117,12 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeImperson
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L359
 
-##### SeAssignPrimaryPrivilege
+#### SeAssignPrimaryPrivilege
 
 向进程(新创建或者挂起的进程)分配token
 通常，iis或者sqlserver用户具有该权限
 
-##### 利用思路1
+#### 利用思路1
 
 1、利用NTLM Relay to Local Negotiation获得System用户的Token  
 2、通过WinAPI CreateProcessAsUser创建新进程，传入System用户的Token  
@@ -133,7 +133,7 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeAssignPr
 
 代码实现了开启当前进程的SeAssignPrimaryTokenPrivilege权限，调用CreateProcessAsUser，传入当前进程的Token，创建一个进程，配合RottenPotato，可用来从LocalService提权至System权限
 
-##### 利用思路2
+#### 利用思路2
 1、利用NTLM Relay to Local Negotiation获得System用户的Token  
 2、通过WinAPI CreateProcess创建一个挂起的新进程，参数设置为CREATE_SUSPENDED  
 3、通过WinAPI NtSetInformationProcess将新进程的Token替换为System用户的Token  
@@ -145,10 +145,10 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeAssignPr
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L418
 
-##### SeTcbPrivilege
+#### SeTcbPrivilege
 
 等同于获得了系统的最高权限
-##### 利用思路
+#### 利用思路
 1、调用LsaLogonUser获得Token  
 2、将该Token添加至Local System account组  
 3、该Token具有System权限  
@@ -162,10 +162,10 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeTcbPrivi
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L495
 
-##### SeBackupPrivilege
+#### SeBackupPrivilege
 用来实现备份操作，对当前系统任意文件具有读权限
 
-##### 利用思路
+#### 利用思路
 
 1、读取注册表HKEY_LOCAL_MACHINE\SAM、HKEY_LOCAL_MACHINE\SECURITY和HKEY_LOCAL_MACHINE\SYSTEM  
 2、导出当前系统的所有用户hash mimikatz的命令如下：  
@@ -183,15 +183,15 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeBackupPr
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L528
 
-##### SeRestorePrivilege
+#### SeRestorePrivilege
 用来实现恢复操作，对当前系统任意文件具有写权限
 
-##### 利用思路1
+#### 利用思路1
 1、获得SeRestorePrivilege权限，修改注册表HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options  
 2、劫持exe文件的启动  
 3、实现提权或是作为后门  
 
-##### 利用思路2
+#### 利用思路2
 1、获得SeRestorePrivilege权限，向任意路径写入dll文件  
 2、实现dll劫持  
 3、实现提权或是作为后门  
@@ -205,11 +205,11 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeRestoreP
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L577
 
-#####  SeCreateTokenPrivilege
+####  SeCreateTokenPrivilege
 
 用来创建Primary Token
 
-##### 利用思路
+#### 利用思路
 1、通过WinAPI ZwCreateToken创建Primary Token  
 2、将Token添加至local administrator组  
 3、该Token具有System权限  
@@ -224,11 +224,11 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeCreateTo
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L626
 
-##### SeLoadDriverPrivilege
+#### SeLoadDriverPrivilege
 
 用来加载驱动文件
 
-##### 利用思路
+#### 利用思路
 
 1、创建驱动文件的注册表  
 
@@ -247,16 +247,16 @@ reg add hkcu\System\CurrentControlSet\CAPCOM /v Type /t REG_DWORD /d 1
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L688
 
-##### SeTakeOwnershipPrivilege
+#### SeTakeOwnershipPrivilege
 
 同SeRestorePrivilege类似，对当前系统任意文件具有写权限
 
-##### 利用思路1
+#### 利用思路1
 1、获得SeTakeOwnershipPrivilege权限，修改注册表HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options  
 2、劫持exe文件的启动  
 3、实现提权或是作为后门  
 
-##### 利用思路2
+#### 利用思路2
 1、获得SeTakeOwnershipPrivilege权限，向任意路径写入dll文件  
 2、实现dll劫持  
 3、实现提权或是作为后门  
@@ -276,10 +276,10 @@ reg add "hklm\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution 
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L736
 
-##### SeDebugPrivilege
+#### SeDebugPrivilege
 用来调试指定进程，包括读写内存，常用作实现dll注入
 
-##### 利用思路
+#### 利用思路
 1、找到System权限的进程  
 2、dll注入  
 3、获得System权限  
