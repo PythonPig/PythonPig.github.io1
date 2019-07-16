@@ -10,22 +10,24 @@ author: PythonPig
 {:toc}
 
 在域渗透的时候经常使用impacket的secretsdump.py来获取域内主机甚至域控上的hash值，secretsdump通过多种方法获取{sam, secrets, cached and ntds}中保存的用户凭证。  
-今天并不讲secretsdump.py的实现方法，也许某天不忙的时候会分析一下其具体实现细节。今天主要借助secretsdump.py了解一下用户凭证在windows系统中是如何存储的。  
+  
 
-![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Windows%20hash%20dump之secretsdump/stupid-hashdump.jpg?raw=true) 图片来源于http://blog.extremehacking.org/blog/2017/06/19/make-hashdump-module-work-windows-10-sam-mode/
+![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Windows%20hash%20dump之secretsdump/stupid-hashdump.jpg?raw=true)   
+图片来源于http://blog.extremehacking.org/blog/2017/06/19/make-hashdump-module-work-windows-10-sam-mode/
 
+
+
+
+今天并不讲secretsdump.py的实现方法，也许某天不忙的时候会分析一下其具体实现细节。今天主要借助secretsdump.py了解一下用户凭证在windows系统中是如何存储的。
 本文的主要内容：  
-1、secretsdump.py的使用
+1、secretsdump.py的使用  
 2、用户凭证在windows系统如何存储
-
-
-
-
 
 ### \#0x00 secretsdump.py的使用:
 直接查看帮助是便捷且有效的方法  
-secretsdump.py -h:
+
 ``` 
+secretsdump.py -h:
 Impacket v0.9.20-dev - Copyright 2019 SecureAuth Corporation
 
 usage: secretsdump.py [-h] [-debug] [-system SYSTEM] [-bootkey BOOTKEY]
@@ -102,7 +104,7 @@ connection:
 ```
 基本使用方法：
 ```
-python secretsdump.py domain/username@10.10.40.24110.10.10.10 -hashes LM HASH:NT HASH 
+python secretsdump.py domain/username@10.10.10.10 -hashes LM HASH:NT HASH 
 ```
 secretsdump.py主要从SAM、LSA secrets(包括 cached creds)和域控的NTDS.dit三处获取用户凭证，唯一的一点是不能dump LSASS进程在内存中的数据。  
 
@@ -119,7 +121,6 @@ secretsdump可以从SAM、LSA secrets(包括 cached creds)和域控的NTDS.dit�
 
 
 ### 参考
-转载于下面的文章，感谢klion
 * [Cached Domain Credentials](https://moyix.blogspot.com/2008/02/cached-domain-credentials.html)  
 * [Interactive logon: Number of previous logons to cache (in case domain controller is not available)](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/jj852209%28v%3dws.11%29)  
 * [绕过杀软导出域内用户hash的方法记录](https://pythonpig.github.io/2018/12/13/绕过杀软导出域内用户hash方法记录/)
