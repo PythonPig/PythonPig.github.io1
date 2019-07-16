@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Windows hash dump之secretsdump
-date: 2019-07-2116 23:30:00
+date: 2019-07-16 23:30:00
 tags: 域渗透
 categories: hack 
 author: PythonPig
@@ -12,7 +12,7 @@ author: PythonPig
 在域渗透的时候经常使用impacket的secretsdump.py来获取域内主机甚至域控上的hash值，secretsdump通过多种方法获取{sam, secrets, cached and ntds}中保存的用户凭证。  
 今天并不讲secretsdump.py的实现方法，也许某天不忙的时候会分析一下其具体实现细节。今天主要借助secretsdump.py了解一下用户凭证在windows系统中是如何存储的。  
 
-![]() 图片来源于http://blog.extremehacking.org/blog/2017/06/19/make-hashdump-module-work-windows-10-sam-mode/
+![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Windows%20hash%20dump之secretsdump/stupid-hashdump.jpg?raw=true) 图片来源于http://blog.extremehacking.org/blog/2017/06/19/make-hashdump-module-work-windows-10-sam-mode/
 
 本文的主要内容：  
 1、secretsdump.py的使用
@@ -108,7 +108,7 @@ secretsdump.py主要从SAM、LSA secrets(包括 cached creds)和域控的NTDS.di
 
 ### \#0x02 用户凭证在windows系统如何存储:
 查看微软官方的说明
-![用户凭证在windows系统中的存储情况]() 
+![用户凭证在windows系统中的存储情况](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Windows%20hash%20dump之secretsdump/用户凭证在windows系统中的存储情况%20copy.png?raw=true) 
 
 根据微软官网的介绍，用户凭证一般存储在SAM、LSA secrets、NTDS.DIT和LSASS进程的内存中，另外系统缓存中也有可能存在用户凭证，参见：  
 [Cached Domain Credentials](https://moyix.blogspot.com/2008/02/cached-domain-credentials.html)  
