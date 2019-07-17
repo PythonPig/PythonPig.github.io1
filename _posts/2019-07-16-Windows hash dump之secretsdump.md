@@ -121,6 +121,7 @@ secretsdump可以从SAM、LSA secrets(包括 cached creds)和域控的NTDS.dit�
 
 
 ### 参考
+* [Dumping Windows Credentials](https://www.securusglobal.com/community/2013/12/20/dumping-windows-credentials/)
 * [Cached Domain Credentials](https://moyix.blogspot.com/2008/02/cached-domain-credentials.html)  
 * [Interactive logon: Number of previous logons to cache (in case domain controller is not available)](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/jj852209%28v%3dws.11%29)  
 * [绕过杀软导出域内用户hash的方法记录](https://pythonpig.github.io/2018/12/13/绕过杀软导出域内用户hash方法记录/)
