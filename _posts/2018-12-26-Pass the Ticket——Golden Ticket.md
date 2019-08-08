@@ -14,8 +14,11 @@ author: PythonPig
 域渗透过程简单来说：搞定域内某机器—获取域管登录凭证—登录域控导出所有用户hash—完毕  
 导出域管hash或明文密码后并不一定万事大吉，如果所有域管全部更改密码后我们之前的导出的hash和密码就没用了，如果我们还有域内机器普通用户的权限的话，可以通过本文的方法找回域管权限。今天主要聊一下在域渗透后期如何利用Kerberos认证过程中的问题来维持域权限。  
 
-![golden ticket](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Pass%20the%20Ticket%E2%80%94%E2%80%94Golden%20Ticket/golden%20ticket.jpg?raw=true)  
+{:refdef: style="text-align: center;"}
+![golden ticket](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Pass%20the%20Ticket%E2%80%94%E2%80%94Golden%20Ticket/golden%20ticket.jpg?raw=true)
+{: refdef}
 图片来源于:https://image.slidesharecdn.com
+
 
 
 
