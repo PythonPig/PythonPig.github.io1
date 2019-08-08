@@ -9,7 +9,7 @@ author: PythonPig
 * content
 {:toc}
 
-在之前的项目中，编译开源项目或软件时经常使用./config、make、make install等命令，用的比较多比较熟了，但没有对其过程进行深入的学习，目前手里的项目需要用到相关的东西，就在这里简单的了解一下使用autoconf和automake生成makefile的过程。
+在之前的项目中，编译较复杂开源项目或安装软件时经常使用./config、make、make install等命令，用的比较多比较熟了，但没有对其过程进行深入的学习，目前手里的项目需要用到相关的东西，就在这里简单的了解一下使用autoconf和automake生成makefile的过程。
 
 ![autoconfig](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/autoconf.jpg?raw=true)   
 图片来源于https://everycity.co.uk/alasdair/2011/03/autoconf-automake-and-libtoolized-version-of-bzip2/
@@ -19,14 +19,14 @@ author: PythonPig
 
 今天这篇文章主要是转载IBM developerWorks的一篇文章（见参考部分第一篇文章），文章逻辑非常清楚，在转载的同时，对文章部分内容作了小的修改和增加，文章版权属于原作者。
 
-### \#0x00 引子:
+### \#0x00 写在前面
 无论是在Linux还是在Unix环境中，make都是一个非常重要的编译命令。不管是自己进行项目开发还是安装应用软件，我们都经常要用到make或 make install。利用make工具，我们可以将大型的开发项目分解成为多个更易于管理的模块，对于一个包括几百个源文件的应用程序，使用make和 makefile工具就可以轻而易举的理顺各个源文件之间纷繁复杂的相互关系。  
 
 但是如果通过查阅make的帮助文档来手工编写Makefile,对任何程序员都是一场挑战。幸而有GNU 提供的Autoconf及Automake这两套工具使得编写makefile不再是一个难题。  
 
 本文将介绍如何利用 GNU Autoconf 及 Automake 这两套工具来协助我们自动产生 Makefile文件，并且让开发出来的软件可以像大多数源码包那样，只需"./configure", "make","make install" 就可以把程序安装到系统中。  
 
-### \#0x01 模拟需求：
+### \#0x01 模拟需求
 假设源文件按如下目录存放，如图1所示，运用autoconf和automake生成makefile文件。  
 图1 文件目录结构  
 ![目录结构](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/目录结构.jpg?raw=true)
@@ -35,7 +35,7 @@ author: PythonPig
 
 样例程序功能：基于多线程的数据读写保护（联系原作者获取工程和源码（normalnotebook@126.com）或[点击这里下载源码](********************************)）。  
 
-### \#0x02 工具简介:
+### \#0x02 工具简介
 所必须的软件：autoconf/automake/m4/perl/libtool（其中libtool非必须）。  
 
 autoconf是一个用于生成可以自动地配置软件源码包，用以适应多种UNIX类系统的shell脚本工具，其中autoconf需要用到 m4，便于生成脚本。automake是一个从Makefile.am文件自动生成Makefile.in的工具。为了生成Makefile.in，automake还需用到perl，由于automake创建的发布完全遵循GNU标准，所以在创建中不需要perl。libtool是一款方便生成各种程序库的工具。  
@@ -56,7 +56,7 @@ autoconf是一个用于生成可以自动地配置软件源码包，用以适应
 
 flat类型是最简单的，deep类型是最复杂的。不难看出，我们的模拟需求正是基于第三类deep型，也就是说我们要做挑战性的事情：)。注：我们的测试程序是基于多线程的简单程序。  
 
-### \#0x03 生成 Makefile 的来龙去脉:
+### \#0x03 生成 Makefile 的来龙去脉
 首先进入 project 目录，在该目录下运行一系列命令，创建和修改几个文件，就可以生成符合该平台的Makefile文件，操作过程如下：  
 
 1)	运行autoscan命令  
@@ -177,7 +177,7 @@ Autoconf提供了很多内置宏来做相关的检测，限于篇幅关系，我
 
 
 
-#### 实战Makefile.am:
+#### 实战Makefile.am
 Makefile.am是一种比Makefile更高层次的规则。只需指定要生成什么目标，它由什么源文件生成，要安装到什么目录等构成。  
 
 表一列出了可执行文件、静态库、头文件和数据文件，四种书写Makefile.am文件的一般格式。  
@@ -194,8 +194,10 @@ Makefile.am还提供了一些全局变量供所有的目标体使用：
 
 在Makefile.am中尽量使用相对路径，系统预定义了两个基本路径：  
 
-表3 Makefile.am中可用的路径变量  
+表3 Makefile.am中可用的路径变量<center>
+
 ![Makefile.am中可用的路径变量](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am中可用的路径变量.gif?raw=true)
+</center>
 
 
 我们首先需要在工程顶层目录下（即project/）创建一个Makefile.am来指明包含的子目录：    
