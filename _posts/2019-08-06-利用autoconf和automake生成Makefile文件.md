@@ -196,14 +196,15 @@ Makefile.am还提供了一些全局变量供所有的目标体使用：
 
 表3 Makefile.am中可用的路径变量
 
+
+{:refdef: style="text-align: center;"}
+![Makefile.am中可用的路径变量](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am中可用的路径变量.gif?raw=true)
+{: refdef}
+
+
 <center>
 <img src="https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am中可用的路径变量.gif?raw=true" width="60%">
 </center>  
-
-<div align=center><img src="https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am中可用的路径变量.gif?raw=true" width="500" /></div>
-
-
-
 
 ![Makefile.am中可用的路径变量](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am中可用的路径变量.gif?raw=true)
 
