@@ -41,7 +41,7 @@ author: PythonPig
 ### \#0x02 工具简介
 所必须的软件：autoconf/automake/m4/perl/libtool（其中libtool非必须）。  
 
-autoconf是一个用于生成可以自动地配置软件源码包，用以适应多种UNIX类系统的shell脚本工具，其中autoconf需要用到m4(主要处理宏相关内容)，便于生成脚本，m4文件有由aclocal命令生成。automake是一个从Makefile.am文件自动生成Makefile.in的工具。为了生成Makefile.in，automake还需用到perl，由于automake创建的发布完全遵循GNU标准，所以在创建中不需要perl。libtool是一款方便生成各种程序库的工具。  
+autoconf是一个用于生成可以自动地配置软件源码包，用以适应多种UNIX类系统的shell脚本工具，其中autoconf需要用到m4(主要处理宏相关内容)，便于生成脚本，m4文件由aclocal命令生成。automake是一个从Makefile.am文件自动生成Makefile.in的工具。为了生成Makefile.in，automake还需用到perl，由于automake创建的发布完全遵循GNU标准，所以在创建中不需要perl。libtool是一款方便生成各种程序库的工具。  
 
 目前automake支持三种目录层次：flat、shallow和deep。  
 
@@ -57,24 +57,24 @@ autoconf是一个用于生成可以自动地配置软件源码包，用以适应
 
 就是所有源文件及自己写的头文件位于当前目录的一个子目录中，而当前目录里没有任何源文件。 GNU cpio和GNU tar就是这一类。  
 
-flat类型是最简单的，deep类型是最复杂的。不难看出，我们的模拟需求正是基于第三类deep型，也就是说我们要做挑战性的事情：)。注：我们的测试程序是基于多线程的简单程序。  
+flat类型是最简单的，deep类型是最复杂的。不难看出，我们的模拟需求正是基于第三类deep型，也就是说我们要做挑战性的事情。注：我们的测试程序是基于多线程的简单程序。  
 
 ### \#0x03 生成 Makefile 的来龙去脉
 首先进入 project 目录，在该目录下运行一系列命令，创建和修改几个文件，就可以生成符合该平台的Makefile文件，操作过程如下：  
 
 1)	运行autoscan命令  
 
-2)	将configure.scan 文件重命名为configure.in，并修改configure.in文件  
+2)	将configure.scan 文件重命名为configure.ac，并修改configure.ac文件  
 
 3)	在project目录下新建Makefile.am文件，并在core、shell和lib目录下也新建makefile.am文件  
 
-4)	在project目录下新建NEWS、 README、 ChangeLog 、AUTHORS文件  
+4)	在project目录下新建NEWS、 README、 ChangeLog 、AUTHORS四个空文件  
 
 5)	将/usr/share/automake-1.X/目录下的depcomp和complie文件拷贝到本目录下  
 
 6)	运行aclocal命令  
 
-7)  autoheader  
+7)  运行autoheader命令  
 
 8)	运行autoconf命令  
 
@@ -92,7 +92,7 @@ flat类型是最简单的，deep类型是最复杂的。不难看出，我们的
 {: refdef}
 
 #### Configure.in的八股文
-当我们利用autoscan工具生成confiugre.scan文件时，我们需要将confiugre.scan重命名为confiugre.in文件。confiugre.in调用一系列autoconf宏来测试程序需要的或用到的特性是否存在，以及这些特性的功能。  
+当我们利用autoscan工具生成confiugre.scan文件时，我们需要将confiugre.scan重命名为confiugre.ac文件。confiugre.ac调用一系列autoconf宏来测试程序需要的或用到的特性是否存在，以及这些特性的功能。  
 
 下面我们就来目睹一下confiugre.scan的庐山真面目：  
 ```
@@ -129,8 +129,8 @@ AC_OUTPUT
 
 现在就开始修改该文件：  
 ```
-$mv configure.scan configure.in
-$vim configure.in
+$mv configure.scan configure.ac
+$vim configure.ac
 ```
 
 修改后的结果如下：  
@@ -162,31 +162,30 @@ AC_OUTPUT([Makefile
 其中要将AC_CONFIG_HEADER([config.h])修改为：AM_CONFIG_HEADER(config.h), 并加入AM_INIT_AUTOMAKE(test,1.0)。由于我们的测试程序是基于多线程的程序，所以要加入AC_PROG_RANLIB，不然运行automake命令时会出错(AC_PROG_RANLIB is required if any libraries are built in the package)。在AC_OUTPUT输入要创建的Makefile文件名。  
 由于我们是基于deep类型来创建makefile文件，所以我们需要在四处创建Makefile文件。即：project目录下，lib目录下，core和shell目录下。 
 
-
+```
 AC_PREREQ宏声明本文件要求的autoconf版本，autoscan自动生成  
 AC_INIT宏用来定义软件的名称和版本等信息，”FULL-PACKAGE-NAME”为软件包名称，”VERSION”为软件版本号，”BUG-REPORT-ADDRESS”为BUG报告地址（一般为软件作者邮件地址）  
-AC_CONFIG_SRCDIR宏用来侦测所指定的源码文件是否存在，来确定源码目录的有效性。工程中的任意源文件都可以，可以是main函数所在的c文件  
-AM_CONFIG_HEADER宏用于生成config.h文件，以便autoheader使用 
+AC_CONFIG_SRCDIR宏用来检测所指定的源码文件是否存在，来确定源码目录的有效性。工程中的任意源文件都可以，可以是main函数所在的c文件  
+AM_CONFIG_HEADER宏用于检查头文件config.h，config.h由autoheader生成 
 AM_INIT_AUTOMAKE(PACKAGE,VERSION)这个是使用 Automake 所必备的宏，PACKAGE 是所要产生软件的名称，VERSION 是版本编号  
-AC_PROG_CC用来指定编译器，如果不指定，选用默认gcc   
+AC_PROG_CC用来指定编译器，如果不指定，选用默认gcc
+AC_PROG_RANLIB如果工程使用了库文件，则需要该宏
+AC_OUTPUT指定要创建的makefile  
+```
+
 由于我们在程序中使用了读写锁，所以需要对库文件进行检查，即AC_CHECK_LIB([pthread], [main])，该宏的含义如下：  
 {:refdef: style="text-align: center;"}
 ![AC_CHECK_LIB](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/ac_check_lib.gif?raw=true)
 {: refdef}
 
-其中，LIBS是link的一个选项，详细请参看后续的Makefile文件。由于我们在程序中使用了读写锁，所以我们测试pthread库中是否存在pthread_rwlock_init函数。  
+当检测到指定的库之后，在输出变量LIBS中添加-llib，其中，LIBS是link的一个选项，详细请参看后续的Makefile文件。由于我们在程序中使用了读写锁，所以我们测试pthread库中是否存在pthread_rwlock_init函数。  
 
-AC_PROG_RANLIB如果工程使用了库文件，则需要该宏  
-AC_OUTPUT指定要创建的makefile
-
-Autoconf提供了很多内置宏来做相关的检测，限于篇幅关系，我们在这里对其他宏不做详细的解释，具体请参看参考文献1和参考文献2，也可参看autoconf信息页。 
-
-
+Autoconf提供了很多内置宏来做相关的检测，限于篇幅关系，我们在这里对其他宏不做详细的解释。 
 
 #### 实战Makefile.am
 Makefile.am是一种比Makefile更高层次的规则。只需指定要生成什么目标，它由什么源文件生成，要安装到什么目录等构成。  
 
-表一列出了可执行文件、静态库、头文件和数据文件，四种书写Makefile.am文件的一般格式。  
+表一列出了生成 可执行文件、静态库、头文件和数据文件 四种文件的Makefile.am的一般格式。  
 
 表1 Makefile.am一般格式  
 {:refdef: style="text-align: center;"}
@@ -218,7 +217,7 @@ CURRENTPATH=$(shell /bin/pwd)
 INCLUDES=-I$(CURRENTPATH)/src/include -I$(CURRENTPATH)/src/ModuleA/apple/include 
 export INCLUDES
 ```
-由于每个源文件都会用到相同的头文件，所以我们在最顶层的Makefile.am中包含了编译源文件时所用到的头文件，并导出，见蓝色部分代码。 
+由于每个源文件都会用到相同的头文件，所以我们在最顶层的Makefile.am中包含了编译源文件时所用到的头文件，并导出。 
 
 我们将lib目录下的swap.c文件编译成libswap.a文件，被apple/shell/apple.c文件调用，那么lib目录下的Makefile.am如下所示：  
 ```
@@ -226,7 +225,17 @@ noinst_LIBRARIES=libswap.a
 libswap_a_SOURCES=swap.c
 INCLUDES=-I$(top_srcdir)/src/includ
 ```
-细心的读者可能就会问：怎么表1中给出的是bin_LIBRARIES，而这里是noinst_LIBRARIES？这是因为如果只想编译，而不想安装到系统中，就用noinst_LIBRARIES代替bin_LIBRARIES，对于可执行文件就用noinst_PROGRAMS代替bin_PROGRAMS。对于安装的情况，库将会安装到$(prefix)/lib目录下，可执行文件将会安装到${prefix}/bin。如果想安装该库，则Makefile.am示例如下：  
+细心的读者可能就会问：怎么表1中给出的是bin_LIBRARIES，而这里是noinst_LIBRARIES？这是因为如果只想编译，而不想安装到系统中，就用noinst_LIBRARIES代替bin_LIBRARIES，对于可执行文件就用noinst_PROGRAMS代替bin_PROGRAMS。  
+
+#### 介绍一下安装的情况
+1)	标准安装路径
+默认安装路径为：$(prefix) = /usr/local，可以通过./configure --prefix=<new_path>的方法来覆盖。
+其它的预定义目录还包括：bindir = $(prefix)/bin, libdir = $(prefix)/lib, datadir = $(prefix)/share, sysconfdir = $(prefix)/etc等等。
+
+2)	定义一个新的安装路径
+比如test, 可定义testdir = $(prefix)/test, 然后test_DATA =test1 test2，则test1，test2会作为数据文件安装到$(prefix)/ /test目录下。
+
+对于安装的情况，库将会安装到$(prefix)/lib目录下，可执行文件将会安装到${prefix}/bin。如果想安装该库，则Makefile.am示例如下：  
 ```
 bin_LIBRARIES=libswap.a
 libswap_a_SOURCES=swap.c
@@ -235,8 +244,10 @@ swapincludedir=$(includedir)/swap
 swapinclude_HEADERS=$(top_srcdir)/src/include/swap.h
 ```
 最后两行的意思是将swap.h安装到${prefix}/include /swap目录下。  
+  
+    
 
-接下来，对于可执行文件类型的情况，我们将讨论如何写Makefile.am？对于编译apple/core目录下的文件，我们写成的Makefile.am如下所示：  
+接下来，对于可执行文件类型的情况，我们将讨论如何写Makefile.am，对于编译apple/core目录下的文件，我们写成的Makefile.am如下所示：  
 ```
 noinst_PROGRAMS=test
 test_SOURCES=test.c 
@@ -254,7 +265,7 @@ noinst_PROGRAMS=apple
 apple_SOURCES=apple.c
 DEFS+=-D_GNU_SOURCE
 ```
-这样写Makefile.am文件，最终会通过编译连接生成可执行文件，如果只想编译生成apple.o文件的话，这里需要欺骗automake(因为apple.c中没有main函数，生成可执行文件的话肯定报错)，假装要生成可执行文件apple，让它为我们生成依赖关系和执行命令。所以当你运行完automake命令后，然后修改apple/shell/下的Makefile.in文件，直接将LINK语句删除，这样就只会生成编译后的apple.o文件，而不会通过连接生成可执行文件apple,删除LINK语句如下：  
+这样写Makefile.am文件，最终会通过编译连接生成可执行文件apple，如果只想编译生成apple.o文件的话，这里需要欺骗automake(因为apple.c中没有main函数，链接生成可执行文件的话肯定报错)，假装要生成可执行文件apple，让它为我们生成依赖关系和执行命令。所以当你运行完automake命令后，然后修改apple/shell/下的Makefile.in文件，直接将LINK语句删除，这样就只会生成编译后的apple.o文件，而不会通过链接生成可执行文件apple，删除LINK语句如下：  
 
 ```
 clean-noinstPROGRAMS:
@@ -265,7 +276,7 @@ apple$(EXEEXT): $(apple_OBJECTS) $(apple_DEPENDENCIES)
 ```
 通过上述处理，就可以达到我们的目的。从图1中不难看出为什么要修改Makefile.in的原因，而不是修改其他的文件。  
 
-如果文件很多，每个多要去修改Makefile.in的话工作量将会很大，另一个处理方法是直接将apple.c生成库文件libapple.a而不是apple.o。此时，Makefile.am如下：
+如果工程庞大，每个模块都要修改Makefile.in的话工作量将会很大，另一个处理方法是直接将apple.c生成库文件libapple.a而不是apple.o。此时，Makefile.am如下：
 ```
 noinst_LIBRARIES=libapple.a
 libapple_a_SOURCES=apple.c
@@ -283,7 +294,7 @@ DEFS+=-D_GNU_SOURCE
 #LIBS=-lpthread
 export INCLUDES
 ```
-
+这样也可以完成整个工程的编译，[点击这里下载源码]()
 
 
 ### 参考
