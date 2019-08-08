@@ -33,7 +33,7 @@ author: PythonPig
 
 假设src是我们源文件目录，include目录存放其他库的头文件，lib目录存放用到的库文件，然后开始按模块存放，每个模块都有一个对应的目录，模块下再分子模块，如apple、orange。每个子目录下又分core，include，shell三个目录，其中core和shell目录存放.c文件，include的存放.h文件，其他类似。  
 
-样例程序功能：基于多线程的数据读写保护（联系原作者获取工程和源码（normalnotebook@126.com）或[点击这里下载源码](********************************)）。  
+样例程序功能：基于多线程的数据读写保护（联系原作者获取工程和源码（normalnotebook@126.com）或[点击这里下载源码](https://raw.githubusercontent.com/PythonPig/PythonPig.github.io/master/images/利用autoconf和automake生成Makefile文件/project.rar)）。  
 
 ### \#0x02 工具简介
 所必须的软件：autoconf/automake/m4/perl/libtool（其中libtool非必须）。  
@@ -194,10 +194,10 @@ Makefile.am还提供了一些全局变量供所有的目标体使用：
 
 在Makefile.am中尽量使用相对路径，系统预定义了两个基本路径：  
 
-表3 Makefile.am中可用的路径变量<center>
-
+表3 Makefile.am中可用的路径变量  
+<center>
 ![Makefile.am中可用的路径变量](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am中可用的路径变量.gif?raw=true)
-</center>
+</center>  
 
 
 我们首先需要在工程顶层目录下（即project/）创建一个Makefile.am来指明包含的子目录：    
