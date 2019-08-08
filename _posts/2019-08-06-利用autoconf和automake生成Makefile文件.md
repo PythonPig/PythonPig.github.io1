@@ -195,10 +195,7 @@ Makefile.am还提供了一些全局变量供所有的目标体使用：
 在Makefile.am中尽量使用相对路径，系统预定义了两个基本路径：  
 
 表3 Makefile.am中可用的路径变量  
-<center>
 ![Makefile.am中可用的路径变量](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am中可用的路径变量.gif?raw=true)
-</center>  
-
 
 我们首先需要在工程顶层目录下（即project/）创建一个Makefile.am来指明包含的子目录：    
 
