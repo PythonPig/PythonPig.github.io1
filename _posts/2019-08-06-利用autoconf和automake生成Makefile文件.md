@@ -9,9 +9,10 @@ author: PythonPig
 * content
 {:toc}
 
-在之前的项目中，编译较复杂开源项目或安装软件时经常使用./config、make、make install等命令，用的比较多比较熟了，但没有对其过程进行深入的学习，目前手里的项目需要用到相关的东西，就在这里简单的了解一下使用autoconf和automake生成makefile的过程。
-
-![autoconfig](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/autoconf.jpg?raw=true)   
+在之前的项目中，编译较复杂开源项目或安装软件时经常使用./config、make、make install等命令，用的比较多比较熟了，但没有对其过程进行深入的学习，目前手里的项目需要用到相关的东西，就在这里简单的了解一下使用autoconf和automake生成makefile的过程。  
+{:refdef: style="text-align: center;"}
+![autoconfig](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/autoconf.jpg?raw=true)
+{: refdef}
 图片来源于https://everycity.co.uk/alasdair/2011/03/autoconf-automake-and-libtoolized-version-of-bzip2/
 
 
@@ -29,7 +30,9 @@ author: PythonPig
 ### \#0x01 模拟需求
 假设源文件按如下目录存放，如图1所示，运用autoconf和automake生成makefile文件。  
 图1 文件目录结构  
+{:refdef: style="text-align: center;"}
 ![目录结构](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/目录结构.jpg?raw=true)
+{: refdef}
 
 假设src是我们源文件目录，include目录存放其他库的头文件，lib目录存放用到的库文件，然后开始按模块存放，每个模块都有一个对应的目录，模块下再分子模块，如apple、orange。每个子目录下又分core，include，shell三个目录，其中core和shell目录存放.c文件，include的存放.h文件，其他类似。  
 
@@ -84,8 +87,9 @@ flat类型是最简单的，deep类型是最复杂的。不难看出，我们的
 可以通过图2看出产生Makefile的流程，如图所示：  
 
 图2 生成Makefile流程图  
-
+{:refdef: style="text-align: center;"}
 ![生成Makefile流程图](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/生成Makefile流程图.gif?raw=true)
+{: refdef}
 
 #### Configure.in的八股文
 当我们利用autoscan工具生成confiugre.scan文件时，我们需要将confiugre.scan重命名为confiugre.in文件。confiugre.in调用一系列autoconf宏来测试程序需要的或用到的特性是否存在，以及这些特性的功能。  
@@ -166,8 +170,10 @@ AM_CONFIG_HEADER宏用于生成config.h文件，以便autoheader使用
 AM_INIT_AUTOMAKE(PACKAGE,VERSION)这个是使用 Automake 所必备的宏，PACKAGE 是所要产生软件的名称，VERSION 是版本编号  
 AC_PROG_CC用来指定编译器，如果不指定，选用默认gcc   
 由于我们在程序中使用了读写锁，所以需要对库文件进行检查，即AC_CHECK_LIB([pthread], [main])，该宏的含义如下：  
-
+{:refdef: style="text-align: center;"}
 ![AC_CHECK_LIB](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/ac_check_lib.gif?raw=true)
+{: refdef}
+
 其中，LIBS是link的一个选项，详细请参看后续的Makefile文件。由于我们在程序中使用了读写锁，所以我们测试pthread库中是否存在pthread_rwlock_init函数。  
 
 AC_PROG_RANLIB如果工程使用了库文件，则需要该宏  
@@ -183,31 +189,26 @@ Makefile.am是一种比Makefile更高层次的规则。只需指定要生成什�
 表一列出了可执行文件、静态库、头文件和数据文件，四种书写Makefile.am文件的一般格式。  
 
 表1 Makefile.am一般格式  
+{:refdef: style="text-align: center;"}
 ![Makefile.am一般格式](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am一般格式.gif?raw=true)
+{: refdef}
 
 对于可执行文件和静态库类型，如果只想编译，不想安装到系统中，可以用noinst_PROGRAMS代替bin_PROGRAMS，noinst_LIBRARIES代替lib_LIBRARIES。  
 
 Makefile.am还提供了一些全局变量供所有的目标体使用：  
 
-表2 Makefile.am中可用的全局变量    
+表2 Makefile.am中可用的全局变量  
+{:refdef: style="text-align: center;"}
 ![Makefile.am中可用的全局变量](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am中可用的全局变量.gif?raw=true)
+{: refdef}
 
 在Makefile.am中尽量使用相对路径，系统预定义了两个基本路径：  
 
-表3 Makefile.am中可用的路径变量
-
+表3 Makefile.am中可用的路径变量  
 
 {:refdef: style="text-align: center;"}
 ![Makefile.am中可用的路径变量](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am中可用的路径变量.gif?raw=true)
 {: refdef}
-
-
-<center>
-<img src="https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am中可用的路径变量.gif?raw=true" width="60%">
-</center>  
-
-![Makefile.am中可用的路径变量](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am中可用的路径变量.gif?raw=true)
-
 
 我们首先需要在工程顶层目录下（即project/）创建一个Makefile.am来指明包含的子目录：    
 
