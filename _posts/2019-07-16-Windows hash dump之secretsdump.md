@@ -11,9 +11,11 @@ author: PythonPig
 
 在域渗透的时候经常使用impacket的secretsdump.py来获取域内主机甚至域控上的hash值，secretsdump可以通过多种方法获取{sam, secrets, cached and ntds}中保存的用户凭证。  
   
-
-![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Windows%20hash%20dump之secretsdump/stupid-hashdump.jpg?raw=true)   
+{:refdef: style="text-align: center;"}
+![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Windows%20hash%20dump之secretsdump/stupid-hashdump.jpg?raw=true)
+{: refdef}   
 图片来源于http://blog.extremehacking.org/blog/2017/06/19/make-hashdump-module-work-windows-10-sam-mode/
+
 
 
 
