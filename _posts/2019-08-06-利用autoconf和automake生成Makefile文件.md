@@ -38,7 +38,7 @@ author: PythonPig
 ### \#0x02 工具简介
 所必须的软件：autoconf/automake/m4/perl/libtool（其中libtool非必须）。  
 
-autoconf是一个用于生成可以自动地配置软件源码包，用以适应多种UNIX类系统的shell脚本工具，其中autoconf需要用到 m4，便于生成脚本。automake是一个从Makefile.am文件自动生成Makefile.in的工具。为了生成Makefile.in，automake还需用到perl，由于automake创建的发布完全遵循GNU标准，所以在创建中不需要perl。libtool是一款方便生成各种程序库的工具。  
+autoconf是一个用于生成可以自动地配置软件源码包，用以适应多种UNIX类系统的shell脚本工具，其中autoconf需要用到m4(主要处理宏相关内容)，便于生成脚本，m4文件有由aclocal命令生成。automake是一个从Makefile.am文件自动生成Makefile.in的工具。为了生成Makefile.in，automake还需用到perl，由于automake创建的发布完全遵循GNU标准，所以在创建中不需要perl。libtool是一款方便生成各种程序库的工具。  
 
 目前automake支持三种目录层次：flat、shallow和deep。  
 
@@ -194,8 +194,14 @@ Makefile.am还提供了一些全局变量供所有的目标体使用：
 
 在Makefile.am中尽量使用相对路径，系统预定义了两个基本路径：  
 
-表3 Makefile.am中可用的路径变量  
+表3 Makefile.am中可用的路径变量
+
+<center>
+<img src="https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am中可用的路径变量.gif?raw=true" width="80%">
+</center>  
+
 ![Makefile.am中可用的路径变量](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/Makefile.am中可用的路径变量.gif?raw=true)
+
 
 我们首先需要在工程顶层目录下（即project/）创建一个Makefile.am来指明包含的子目录：    
 
