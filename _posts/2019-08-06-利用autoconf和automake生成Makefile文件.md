@@ -219,6 +219,7 @@ export INCLUDES
 ```
 由于每个源文件都会用到相同的头文件，所以我们在最顶层的Makefile.am中包含了编译源文件时所用到的头文件，并导出。 
 
+#### 生成库文件的情况
 我们将lib目录下的swap.c文件编译成libswap.a文件，被apple/shell/apple.c文件调用，那么lib目录下的Makefile.am如下所示：  
 ```
 noinst_LIBRARIES=libswap.a
@@ -246,7 +247,7 @@ swapinclude_HEADERS=$(top_srcdir)/src/include/swap.h
 最后两行的意思是将swap.h安装到${prefix}/include /swap目录下。  
   
     
-
+### 生成可执行文件的情况#
 接下来，对于可执行文件类型的情况，我们将讨论如何写Makefile.am，对于编译apple/core目录下的文件，我们写成的Makefile.am如下所示：  
 ```
 noinst_PROGRAMS=test
@@ -258,8 +259,8 @@ DEFS+=-D_GNU_SOURCE
 ```
 由于我们的test.c文件在链接时，需要apple.o和libswap.a文件，所以我们需要在test_LDADD中包含这两个文件。对于Linux下的信号量/读写锁文件进行编译，需要在编译选项中指明-D_GNU_SOURCE。所以在test_LDFLAGS中指明。而test_LDFLAGS只是链接时的选项，编译时同样需要指明该选项，所以需要DEFS来指明编译选项，由于DEFS已经有初始值，所以这里用+=的形式指明。从这里可以看出，Makefile.am中的语法与Makefile的语法一致，也可以采用条件表达式。如果你的程序还包含其他的库，除了用AC_CHECK_LIB宏来指明外，还可以用LIBS来指明。  
 
-下面看看apple.o文件怎么生成：
-如果你只想编译某一个文件，如apple.c，那么Makefile.am如何写呢？这个文件也很简单，写法跟可执行文件的差不多，如下例所示： 
+### 生成目标文件的情况
+下面看看apple.o文件怎么生成，如果你只想编译某一个文件，如apple.c，那么Makefile.am如何写呢？这个文件也很简单，写法跟可执行文件的差不多，如下例所示： 
 ```
 noinst_PROGRAMS=apple
 apple_SOURCES=apple.c
@@ -276,6 +277,7 @@ apple$(EXEEXT): $(apple_OBJECTS) $(apple_DEPENDENCIES)
 ```
 通过上述处理，就可以达到我们的目的。从图1中不难看出为什么要修改Makefile.in的原因，而不是修改其他的文件。  
 
+### 整个工程只使用静态库的情况
 如果工程庞大，每个模块都要修改Makefile.in的话工作量将会很大，另一个处理方法是直接将apple.c生成库文件libapple.a而不是apple.o。此时，Makefile.am如下：
 ```
 noinst_LIBRARIES=libapple.a
@@ -294,7 +296,7 @@ DEFS+=-D_GNU_SOURCE
 #LIBS=-lpthread
 export INCLUDES
 ```
-这样也可以完成整个工程的编译，[点击这里下载源码]()
+这样也可以完成整个工程的编译，[点击这里下载源码](https://raw.githubusercontent.com/PythonPig/PythonPig.github.io/master/images/利用autoconf和automake生成Makefile文件/project.tar.gz)
 
 
 ### 参考
