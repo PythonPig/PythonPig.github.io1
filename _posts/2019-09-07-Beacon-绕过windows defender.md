@@ -13,7 +13,7 @@ author: PythonPig
 最近工作实在是太忙了，一直想找时间把这篇文章写出来，无奈工作压力太大一直没能抽出时间。今天趁这个周末的晚上把这篇文章写完吧。  
 之前用beacon时习惯性的用windows dll，在windows server 2008 R2上一直运行的很不错，前段时间发现目标网络内部分操作系统升级到了windows server 2016，windows defender也升级到了最新版本，可想而知，没有经过处理的原始CS beacon payload传上去之后瞬间被秒了~~，果断google看看有没有好的解决办法，果然搜到了不少解决办法（具体见《参考》部分），今天只研究如何绕过静态扫描，以后补充如何绕过内存扫描、流量分析、行为分析，这里绕过静态扫描的方法：加密、混淆、截断拼接、payload字符（敏感字符或全部字符）替换、文件不落地等等，不过人怕出名猪怕壮，很多方法已经无法绕过windows defender的检测了。  
 {:refdef: style="text-align: center;"}
-![windows defender]()
+![windows defender](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Beacon-绕过windows%20defender/windows%20defender.jpg?raw=true)
 {: refdef}
 图片来源于https://tweaklibrary.com/how-banking-trojan-disables-windows-defender-on-windows-10/
 
@@ -109,7 +109,7 @@ stager.exe 8.8.x.x 8080
 ##### 2、生成CS payload并在C2服务器启动TCP Server
 使用CS生成payload  
 {:refdef: style="text-align: center;"}
-![生成payload]()
+![生成payload](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Beacon-绕过windows%20defender/生成payload.png?raw=true)
 {: refdef}   
 
 在C2服务器上开启TCP Server，为了方便起见，直接使用netcat  
