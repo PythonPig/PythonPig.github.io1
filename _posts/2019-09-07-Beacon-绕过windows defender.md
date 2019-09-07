@@ -11,7 +11,7 @@ author: PythonPig
 
 ### \#0x00 写在前面 
 最近工作实在是太忙了，一直想找时间把这篇文章写出来，无奈工作压力太大一直没能抽出时间。今天趁这个周末的晚上把这篇文章写完吧。  
-之前用beacon时习惯性的用windows dll，在windows server 2008 R2上一直运行的很不错，前段时间发现目标网络内部分操作系统升级到了windows server 2016，windows defender也升级到了最新版本，可想而知，没有经过处理的原始CS beacon payload传上去之后瞬间被秒了~~，果断google看看有没有好的解决办法，果然搜到了不少解决办法（具体见《参考》部分），今天只研究如何绕过静态扫描，以后补充如何绕过内存扫描、流量分析、行为分析，这里绕过静态扫描的方法：加密、混淆、截断拼接、payload字符（敏感字符或全部字符）替换、文件不落地等等，不过人怕出名猪怕壮，很多方法已经无法绕过windows defender的检测了。  
+之前用CS时习惯性的用windows dll，在windows server 2008 R2上一直运行的很不错，前段时间发现目标网络内部分操作系统升级到了windows server 2016，windows defender也升级到了最新版本，可想而知，没有经过第三方处理的CS beacon payload传上去之后瞬间就被秒了~~，果断google看看有没有好的解决办法，果然搜到了不少解决办法（具体见《参考》部分），今天只研究如何绕过静态扫描，以后补充如何绕过内存扫描、流量分析、行为分析，绕过静态扫描的方法：加密、混淆、截断拼接、payload字符（敏感字符或全部字符）替换、文件不落地等等，不过人怕出名猪怕壮，很多方法已经无法绕过windows defender的检测了。  
 {:refdef: style="text-align: center;"}
 ![windows defender](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Beacon-绕过windows%20defender/windows%20defender.jpg?raw=true)
 {: refdef}
@@ -20,10 +20,11 @@ author: PythonPig
 
 
 ### \#0x01 尝试绕过 
-在测试绕过windows defender的静态扫描时，使用了[Obfuscation](https://github.com/danielbohannon/Invoke-Obfuscation)，结果Obfuscation的部分文件直接被windows defender报毒了，关了defender继续使用Obfuscation把cs的payload进行了混淆，结果，还是绕不过defender的静态扫描；后来使用了[Veil](https://github.com/Veil-Framework/Veil)加密CS的Veil payload，结果可以绕过相当一部分杀软的静态扫描，但是还是过不了最新版的defender静态扫描。  
-Obfuscation和Veil充分说明了什么叫“人怕出名猪怕壮”的道理。    
+在测试绕过windows defender的静态扫描时，首先使用了[Obfuscation](https://github.com/danielbohannon/Invoke-Obfuscation)，结果Obfuscation的部分文件直接被windows defender报毒了，关了defender继续使用Obfuscation把cs的payload进行了混淆，结果，还是绕不过defender的静态扫描；后来使用了[Veil](https://github.com/Veil-Framework/Veil)加密CS的Veil payload，结果可以绕过相当一部分杀软的静态扫描，但是还是过不了最新版的defender静态扫描。    
 
-竟然混淆、加密都过不了defender的静态扫描，那尝试使用“文件不落地”的方式来尝试绕过defender。  
+Obfuscation和Veil的失败充分说明了什么叫“人怕出名猪怕壮”的道理。    
+
+竟然混淆、加密都过不了defender的静态扫描，那尝试使用“文件不落地”的方式来绕过defender。  
 
 思路如下：  
 编写一个简单的stager，这个stager仅用于申请内存、下载payload并执行，该stager本身并不包含恶意代码，因此可以绕过windows defender的静态扫描。  
