@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
    
 
 	if (argc != 3) {
-        fprintf(stderr,"usage: client hostname\n");
+        fprintf(stderr,"usage: stager.exe hostname port\n");
         exit(0);
     }
 	struct hostent *host;
