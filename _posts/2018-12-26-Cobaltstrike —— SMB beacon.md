@@ -22,9 +22,7 @@ author: PythonPig
 ### \#0x01 SMB beacon简介
 SMB Beacon使用命名管道通过父级Beacon进行通讯，当两个Beacons链接后，子Beacon从父Beacon获取到任务并发送。
 因为链接的Beacons使用Windows命名管道进行通信，此流量封装在SMB协议中，所以SMB Beacon相对隐蔽，绕防火墙时可能发挥奇效(系统防火墙默认是允许445的端口与外界通信的，其他端口可能会弹窗提醒，会导致远程命令行反弹shell失败)。  
-这张图很好的诠释了SMB beacon的工作流程。  
-
-![smb beacon](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Cobaltstrike%20SMB%20beacon(命名管道相关知识)%20/smb%20beacon.png?raw=true)
+上图很好的诠释了SMB beacon的工作流程。  
 
 ### \#0x02 命名管道简介
 “命名管道” 又名 “命名管线”，但是通常都叫命名管道，是一种简单基于 SMB 协议的进程间通信（Internet Process Connection - IPC）机制。 在计算机编程里，命名管道可在同一台计算机的不同进程之间或在跨越一个网络的不同计算机的不同进程之间，支持可靠的、单向或双向的数据通信传输。  
