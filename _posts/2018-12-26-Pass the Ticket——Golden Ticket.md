@@ -126,7 +126,7 @@ ticketer.py -nthash 11111111111111111111111111111 -domain-sid S-1-5-21-11111111-
 ```
 注意：  
 1、这里的domain_name一定与生成ticket是用到的domain_name完全相同，否则会出现错误“[-] Kerberos SessionError: KDC_ERR_PREAUTH_FAILED(Pre-authentication information was invalid)”  
-2、这里的dc_hostname_or_dc_ip可以是目标主机的hostname也可以是目标主机的ip地址，使用ip地址是可能会出现错误“[-] Kerberos SessionError: KDC_ERR_S_PRINCIPAL_UNKNOWN(Server not found in Kerberos database)”，此时应尝试使用目标主机的hostname，若发起攻击的linux无法解析域名为ip地址时，请在/etc/hosts文件中添加ip地址和hostname的对应关系。  
+2、这里的dc_hostname_or_dc_ip可以是目标主机的hostname也可以是目标主机的ip地址，使用ip地址是可能会出现错误“[-] Kerberos SessionError: KDC_ERR_S_PRINCIPAL_UNKNOWN(Server not found in Kerberos database)”，此时应尝试使用目标主机的hostname，若发起攻击的linux无法解析hostname为ip地址时，请在/etc/hosts文件中添加ip地址和hostname的对应关系。  
 
 impacket中的不少工具都支持上述方式利用Golden Ticket。  
 注：因为利用Golden Ticket的这台linux机器并不是域内机器，与域控可能存在时间不同步的问题，一般当时间差大于5分钟时会发生"Kerberos SessionError: KRB_AP_ERR_SKEW(Clock skew too great)"错误，解决办法如下：  
