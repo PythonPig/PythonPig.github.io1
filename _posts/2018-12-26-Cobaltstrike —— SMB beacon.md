@@ -11,10 +11,10 @@ author: PythonPig
 
 
 ### \#0x00 写在前面 
-在使用CS的SMB beacon的过程中来学习一下命名管道相关的知识，本文中的内容大部分都是来自网络，谢谢各位大牛，参考文章见最后的【参考】部分。  
+在使用CS的SMB beacon的过程中来学习一下命名管道相关的知识，本文中的内容大部分来自网络，谢谢各位大牛，参考文章见最后的【参考】部分。  
 
 {:refdef: style="text-align: cener;"}
-![smb beacon]()
+![smb beacon](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Cobaltstrike%20SMB%20beacon(命名管道相关知识)%20/smb%20beacon.png?raw=true)
 {: refdef}
 图片来源于:https://blog.cobaltstrike.com/2013/12/06/stealthy-peer-to-peer-cc-over-smb-pipes/
 
@@ -24,7 +24,7 @@ SMB Beacon使用命名管道通过父级Beacon进行通讯，当两个Beacons链
 因为链接的Beacons使用Windows命名管道进行通信，此流量封装在SMB协议中，所以SMB Beacon相对隐蔽，绕防火墙时可能发挥奇效(系统防火墙默认是允许445的端口与外界通信的，其他端口可能会弹窗提醒，会导致远程命令行反弹shell失败)。  
 这张图很好的诠释了SMB beacon的工作流程。  
 
-![smb beacon]()
+![smb beacon](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Cobaltstrike%20SMB%20beacon(命名管道相关知识)%20/smb%20beacon.png?raw=true)
 
 ### \#0x02 命名管道简介
 “命名管道” 又名 “命名管线”，但是通常都叫命名管道，是一种简单基于 SMB 协议的进程间通信（Internet Process Connection - IPC）机制。 在计算机编程里，命名管道可在同一台计算机的不同进程之间或在跨越一个网络的不同计算机的不同进程之间，支持可靠的、单向或双向的数据通信传输。  
@@ -32,6 +32,7 @@ SMB Beacon使用命名管道通过父级Beacon进行通讯，当两个Beacons链
 和一般的管道不同，命名管道可以被不同进程以不同的方式方法调用（可以跨语言、跨平台）。只要程序知道命名管道的名字，任何进程都可以通过该名字打开管道的另一端，根据给定的权限和服务器进程通信。  
 
 默认情况下，我们无法使用命名管道来控制计算机通信，但是微软提供了很多种 Windows API 函数，例如 ：  
+
 用于实例化命名管道的服务器端函数是 CreateNamedPipe  
 接受连接的服务器端功能是 ConnectNamedPipe.aspx)  
 客户端进程通过使用 CreateFile 或 CallNamedPipe 函数连接到命名管道  
