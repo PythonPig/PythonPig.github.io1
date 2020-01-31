@@ -12,7 +12,7 @@ author: PythonPig
 这里主要记录自己使用的一些Windows后门和权限维持的方法，主要来自网络，另外记录一些自己在使用过程中踩的坑，方法会持续更新。  
 
 {:refdef: style="text-align: center;"}
-![backdoor](xxxxxxxxx)
+![backdoor](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Backdoor%20and%20persistence-Windows/backdoor.png?raw=true)
 {: refdef}   
 图片来源于https://xz.aliyun.com/t/4842
 
@@ -47,7 +47,7 @@ HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\Names\Administrator [1 17]
 ```
 
 2、使用powershell脚本添加影子账户  
-这里使用三好学生的脚本添加影子账户，[Windows-User-Clone](https://github.com/3gstudent/Windows-User-Clone)，这个脚本需要system权限，因为注册表的权限已经打开，这里修改下脚本，使脚本可以在administrator权限下运行，[修改后的脚本](xxxxxxxxxxxxx)，添加的用户名和密码在文件的最后一行。  
+这里使用三好学生的脚本添加影子账户，[Windows-User-Clone](https://github.com/3gstudent/Windows-User-Clone)，这个脚本需要system权限，因为注册表的权限已经打开，这里修改下脚本，使脚本可以在administrator权限下运行，[修改后的脚本](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Backdoor%20and%20persistence-Windows/Windows-User-Clone.ps1)，添加的用户名和密码在文件的最后一行。  
 
 3、添加成功后，恢复注册表权限  
 regini down.ini  
