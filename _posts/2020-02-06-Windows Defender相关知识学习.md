@@ -14,6 +14,10 @@ author: PythonPig
 {:refdef: style="text-align: center;"}
 ![windefend](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Windows%20Defender相关知识学习/Windows-Defender.jpg?raw=true) 
 {: refdef}
+
+
+
+
 图片来源于https://www.techzine.be/nieuws/security/45304/windows-defender-faalt-malware-scan-na-enkele-seconden/  
 
 ### \#0x00 相关操作记录

@@ -82,5 +82,5 @@ sr1(IP(dst="192.168.11.2")/TCP(dport=57212,flags="S"))，
 通过上面对Vmnat的分析其实就比较容易理解文章开头遇到的问题了，因为vmnat是一个代理(proxy)，而proxy只代理用户的数据部分（对TCP的数据部分进行解包-重新封包-转发），而TCP keepalive发送的是没有数据的ACK包，因此TCP keepalive无法穿透vmnat；另一方面，vmnat作为proxy分别与对端服务端和虚拟机建立了TCP连接，因此，vmnat会以服务端的身份回复虚拟机keepalive response！
 
 ### \#0x04 参考  
-[RFC1122(TCP keepalive)](https://tools.ietf.org/html/rfc1122#section-4.2.3.6)  
-[VMWare的NAT模式下使用traceroute(解析vmnat的行为)](https://blog.csdn.net/dog250/article/details/52234859)
+* [RFC1122(TCP keepalive)](https://tools.ietf.org/html/rfc1122#section-4.2.3.6)  
+* [VMWare的NAT模式下使用traceroute(解析vmnat的行为)](https://blog.csdn.net/dog250/article/details/52234859)
