@@ -16,7 +16,7 @@ author: PythonPig
 {: refdef}
 图片来源于https://www.techzine.be/nieuws/security/45304/windows-defender-faalt-malware-scan-na-enkele-seconden/  
 
-### \#0x00 相关操作记录:
+### \#0x00 相关操作记录
 在渗透测试过程中，经常遇到Windows Defender，最近通过阅读微软官方文档找到了一些通过powershell操作WinDefend的方法。  
 渗透测试时，先获取并保存目标原有配置，然后添加ExclusionPath或ExclusionProcess，操作完成后恢复原有配置。  
 
@@ -50,6 +50,6 @@ powershell.exe Set-MpPreference -DisableRealtimeMonitoring $false
 ```
 
 
-
-[Microsoft Docs - Defender](https://docs.microsoft.com/en-us/powershell/module/defender/?view=win10-ps)
-[HOW TO DISABLE AND CONFIGURE WINDOWS DEFENDER ON WINDOWS SERVER 2016 USING POWERSHELL](https://www.thomasmaurer.ch/2016/07/how-to-disable-and-configure-windows-defender-on-windows-server-2016-using-powershell/)  
+### 参考
+* [Microsoft Docs - Defender](https://docs.microsoft.com/en-us/powershell/module/defender/?view=win10-ps)
+* [HOW TO DISABLE AND CONFIGURE WINDOWS DEFENDER ON WINDOWS SERVER 2016 USING POWERSHELL](https://www.thomasmaurer.ch/2016/07/how-to-disable-and-configure-windows-defender-on-windows-server-2016-using-powershell/)  

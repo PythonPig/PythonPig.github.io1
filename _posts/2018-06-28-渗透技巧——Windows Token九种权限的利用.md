@@ -30,7 +30,7 @@ https://foxglovesecurity.com/2016/09/26/  rotten-potato-privilege-escalation-fro
 https://foxglovesecurity.com/2017/08/25/  abusing-token-privileges-for-windows-local-privilege-escalation/  
 
 
-### \#0x01 简介:
+### \#0x01 简介
 
 本文将要介绍以下内容：
 
@@ -46,7 +46,7 @@ https://foxglovesecurity.com/2017/08/25/  abusing-token-privileges-for-windows-l
 * SeDebugPrivilege权限对应的利用思路和开源代码
 
 
-### \#0x02 简要利用思路:
+### \#0x02 简要利用思路
 #### 1、取得了目标的访问权限后，查看可用权限
 ```
 whoami /priv
@@ -84,7 +84,7 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnablePrivilegea
 iis或者sqlserver的用户通常具有SeImpersonatePrivilege和SeAssignPrimaryPrivilege权限
 Backup service用户通常具有SeBackupPrivilege和SeRestorePrivilege权限
 
-### \#0x03 SeImpersonatePrivilege权限的利用思路:
+### \#0x03 SeImpersonatePrivilege权限的利用思路
 
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L327
@@ -113,7 +113,7 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeImperson
 代码实现了开启当前进程的SeImpersonatePrivilege权限，调用CreateProcessWithToken，传入当前进程的Token，创建一个进程，配合RottenPotato，可用来从LocalService提权至System权限
 
 
-### \#0x04 SeAssignPrimaryPrivilege权限的利用思路:
+### \#0x04 SeAssignPrimaryPrivilege权限的利用思路
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L359
 
@@ -141,7 +141,7 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeAssignPr
 
 
 
-### \#0x05 SeTcbPrivilege权限的利用思路:
+### \#0x05 SeTcbPrivilege权限的利用思路
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L418
 
@@ -158,7 +158,7 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeTcbPrivi
 
 代码实现了开启当前进程的SeTcbPrivilege权限，登录用户test1,将其添加至Local System account组，获得System权限，创建注册表项HKEY_LOCAL_MACHINE\SOFTWARE\testtcb
 
-### \#0x06 SeBackupPrivilege权限的利用思路:
+### \#0x06 SeBackupPrivilege权限的利用思路
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L495
 
@@ -179,7 +179,7 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeBackupPr
 代码实现了开启当前进程的SeBackupPrivilege权限，读取注册表，将其保存成文件C:\\test\\SAM、C:\\test\\SECURITY和C:\\test\\SYSTEM
 
 
-### \#0x07 SeRestorePrivilege权限的利用思路:
+### \#0x07 SeRestorePrivilege权限的利用思路
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L528
 
@@ -201,7 +201,7 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeRestoreP
 
 代码实现了开启当前进程的SeRestorePrivilege权限，创建注册表项HKEY_LOCAL_MACHINE\SOFTWARE\testrestore
 
-### \#0x08 SeCreateTokenPrivilege权限的利用思路:
+### \#0x08 SeCreateTokenPrivilege权限的利用思路
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L577
 
@@ -220,7 +220,7 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeCreateTo
 代码实现了开启当前进程的SeCreateTokenPrivilege权限，创建Primary Token，将其添加至local administrator组，开启SeDebugPrivilege和SeTcbPrivilege权限
 
 
-### \#0x09 SeLoadDriverPrivilege权限的利用思路:
+### \#0x09 SeLoadDriverPrivilege权限的利用思路
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L626
 
@@ -243,7 +243,7 @@ reg add hkcu\System\CurrentControlSet\CAPCOM /v Type /t REG_DWORD /d 1
 
 代码实现了开启当前进程的SeLoadDriverPrivilege权限，读取注册表项hkcu\System\CurrentControlSet\CAPCOM，加载驱动文件Capcom.sys
 
-### \#0x0A SeTakeOwnershipPrivilege权限的利用思路路:
+### \#0x0A SeTakeOwnershipPrivilege权限的利用思路路
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L688
 
@@ -272,7 +272,7 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeTakeOwne
 reg add "hklm\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /v takeownership /t REG_SZ /d "C:\\Windows\\System32\\calc.exe"
 ```
 
-### \#0x0B SeDebugPrivilege权限的利用思路:
+### \#0x0B SeDebugPrivilege权限的利用思路
 参考资料：
 https://github.com/hatRiot/token-priv/blob/master/abusing_token_eop_1.0.txt#L736
 
@@ -289,7 +289,7 @@ https://github.com/3gstudent/Homework-of-C-Language/blob/master/EnableSeDebugPri
 
 代码实现了开启当前进程的SeDebugPrivilege权限，向指定进程注入dll
 
-### \#0x0C 小结:
+### \#0x0C 小结
 本文总结了普通用户(或者LocalService用户)Token中九种权限的利用方法，分析利用思路，完善实现代码
 
 ### 参考
