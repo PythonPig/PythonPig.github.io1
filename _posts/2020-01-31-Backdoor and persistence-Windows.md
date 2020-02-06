@@ -19,7 +19,7 @@ author: PythonPig
 
 
 图片来源于https://xz.aliyun.com/t/4842
-### \#0x00 影子账户:
+### \#0x00 影子账户
 影子账户指的是用户名以$结尾，具有administrator权限，使用net user和控制面板看不到的账户。  
 下面添加影子账户的方法不适用于DC(域控)，因为该方法利用了本地帐号保存在注册表HKEY_LOCAL_MACHINE\SAM\SAM中的信息，但是域控不存在本地账户： 
 ```
@@ -83,7 +83,34 @@ psexe:psexec.py "username$"@10.100.100.100
 
 5、防御  
 针对隐藏帐户的利用，查看注册表HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\即可。  
-当然，默认管理员权限(administrator)无法查看，需要分配权限或是提升至Sytem权限，可打开注册表编辑器(regedit.exe)直接分配权限。    
+当然，默认管理员权限(administrator)无法查看，需要分配权限或是提升至Sytem权限，可打开注册表编辑器(regedit.exe)直接分配权限。  
+
+### \#0x01 Hook PasswordChangeNotify
+在域用户(包括域管)修改密码时，通过Hook PasswordChangeNotify拦截并记录其明文密码。  
+利用powershell向lsass进程注入dll，实现Hook功能，详细原理参考《参考》中的相关文章。  
+1、生成dll  
+源代码可以在这里下载：https://github.com/clymb3r/Misc-Windows-Hacking  
+为了使记录的明文密码的文件更隐蔽，简单修改下源代码，使记录密码的文件保存在C:\windows\temp\XXX.tmp文件中。  
+使用VS2015开发环境，MFC设置为在静态库中使用MFC，编译工程，生成HookPasswordChange.dll，[代码在这里]()。  
+
+2、下载Powershell的dll注入脚本  
+源代码可以在这里下载：https://github.com/clymb3r/PowerShell/blob/master/Invoke-ReflectivePEInjection/Invoke-ReflectivePEInjection.ps  
+需要在最后添加一句代码以调用上述dll文件，直接下载 三好学生 修改好的[HookPasswordChangeNotify.ps1]()。  
+
+3、Hook PasswordChangeNotify  
+将HookPasswordChangeNotify.ps1和HookPasswordChange.dll上传至域控的同一目录下。  
+执行：
+```
+PowerShell.exe -ExecutionPolicy Bypass -File HookPasswordChangeNotify.ps1
+```
+当域用户修改密码后，明文密码将被记录在域控的C:\windows\temp\XXX.tmp中。  
+
+4、远程获取明文密码  
+可以修改DLL，使获取的明文密码直接上传至服务器，已经有人写好了DLL，在这里：[kevien/PasswordchangeNotify]()。  
+
+5、实际使用  
+在使用过程中可能会被杀软拦截，在测试过程中发现，Windows Defender会识别将HookPasswordChangeNotify.ps1识别为恶意脚本而直接隔离，其他杀软未测试。  
+
 
 ### 参考
 * [渗透技巧——Windows系统的帐户隐藏](https://3gstudent.github.io/3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Windows%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B8%90%E6%88%B7%E9%9A%90%E8%97%8F/)  
