@@ -14,11 +14,11 @@ author: PythonPig
 {:refdef: style="text-align: center;"}
 ![backdoor](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Backdoor%20and%20persistence-Windows/backdoor.png?raw=true)
 {: refdef}   
+
+
+
+
 图片来源于https://xz.aliyun.com/t/4842
-
-
-
-
 ### \#0x00 影子账户:
 影子账户指的是用户名以$结尾，具有administrator权限，使用net user和控制面板看不到的账户。  
 下面添加影子账户的方法不适用于DC(域控)，因为该方法利用了本地帐号保存在注册表HKEY_LOCAL_MACHINE\SAM\SAM中的信息，但是域控不存在本地账户： 

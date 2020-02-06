@@ -17,11 +17,11 @@ author: PythonPig
 {:refdef: style="text-align: center;"}
 ![golden ticket](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Pass%20the%20Ticket%E2%80%94%E2%80%94Golden%20Ticket/golden%20ticket.jpg?raw=true)
 {: refdef}
+
+
+
+
 图片来源于:https://image.slidesharecdn.com
-
-
-
-
 ### \#0x01 原理简介
 在Kerberos认证过程中，用户的Ticket都是由Kerberos用户krbtgt的密码Hash生成的，如果获得了krbtgt的密码hash，则可以伪造任意用户的Ticket，当然我们关心的是域管的Ticket。  
 详细的Kerberos认证过程和Pass the Ticket的过程参见【参考】部分。  

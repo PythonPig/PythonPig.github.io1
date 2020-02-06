@@ -15,10 +15,11 @@ author: PythonPig
 {:refdef: style="text-align: center;"}
 ![windows defender](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Beacon-绕过windows%20defender/windows%20defender.jpg?raw=true)
 {: refdef}
+
+
+
+
 图片来源于https://tweaklibrary.com/how-banking-trojan-disables-windows-defender-on-windows-10/
-
-
-
 ### \#0x01 尝试绕过 
 在测试绕过windows defender的静态扫描时，首先使用了[Obfuscation](https://github.com/danielbohannon/Invoke-Obfuscation)，结果Obfuscation的部分文件直接被windows defender报毒了，关了defender继续使用Obfuscation把cs的payload进行了混淆，结果，还是绕不过defender的静态扫描；后来使用了[Veil](https://github.com/Veil-Framework/Veil)加密CS的Veil payload，结果可以绕过相当一部分杀软的静态扫描，但是还是过不了最新版的defender静态扫描。    
 

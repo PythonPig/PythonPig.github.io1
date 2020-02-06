@@ -13,11 +13,11 @@ author: PythonPig
 {:refdef: style="text-align: center;"}
 ![autoconfig](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/利用autoconf和automake生成Makefile文件/autoconf.jpg?raw=true)
 {: refdef}
+
+
+
+
 图片来源于https://everycity.co.uk/alasdair/2011/03/autoconf-automake-and-libtoolized-version-of-bzip2/
-
-
-
-
 今天这篇文章主要是转载IBM developerWorks的一篇文章（见参考部分第一篇文章），文章逻辑非常清楚，在转载的同时，对文章部分内容作了小的修改和增加，文章版权属于原作者。
 
 ### \#0x00 写在前面

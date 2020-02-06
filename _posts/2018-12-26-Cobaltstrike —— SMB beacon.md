@@ -16,11 +16,11 @@ author: PythonPig
 {:refdef: style="text-align: cener;"}
 ![smb beacon](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Cobaltstrike%20SMB%20beacon(命名管道相关知识)%20/smb%20beacon.png?raw=true)
 {: refdef}
+
+
+
+
 图片来源于:https://blog.cobaltstrike.com/2013/12/06/stealthy-peer-to-peer-cc-over-smb-pipes/
-
-
-
-
 ### \#0x01 SMB beacon简介
 SMB Beacon使用命名管道通过父级Beacon进行通讯，当两个Beacons链接后，子Beacon从父Beacon获取到任务并发送。
 因为链接的Beacons使用Windows命名管道进行通信，此流量封装在SMB协议中，所以SMB Beacon相对隐蔽，绕防火墙时可能发挥奇效(系统防火墙默认是允许445的端口与外界通信的，其他端口可能会弹窗提醒，会导致远程命令行反弹shell失败)。  

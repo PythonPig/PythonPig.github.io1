@@ -14,12 +14,12 @@ author: PythonPig
 {:refdef: style="text-align: center;"}
 ![](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Windows%20hash%20dump之secretsdump/stupid-hashdump.jpg?raw=true)
 {: refdef}   
+
+
+
+
+
 图片来源于http://blog.extremehacking.org/blog/2017/06/19/make-hashdump-module-work-windows-10-sam-mode/
-
-
-
-
-
 今天并不讲secretsdump.py的实现方法，也许某天不忙的时候会分析一下其具体实现细节。今天主要借助secretsdump.py了解一下用户凭证在windows系统中是如何存储的。
 本文的主要内容：  
 1、secretsdump.py的使用  
