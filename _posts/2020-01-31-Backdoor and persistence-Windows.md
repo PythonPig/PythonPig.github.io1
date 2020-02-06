@@ -91,11 +91,11 @@ psexe:psexec.py "username$"@10.100.100.100
 1、生成dll  
 源代码可以在这里下载：https://github.com/clymb3r/Misc-Windows-Hacking  
 为了使记录的明文密码的文件更隐蔽，简单修改下源代码，使记录密码的文件保存在C:\windows\temp\XXX.tmp文件中。  
-使用VS2015开发环境，MFC设置为在静态库中使用MFC，编译工程，生成HookPasswordChange.dll，[代码在这里]()。  
+使用VS2015开发环境，MFC设置为在静态库中使用MFC，编译工程，生成[HookPasswordChange.dll]()。  
 
 2、下载Powershell的dll注入脚本  
 源代码可以在这里下载：https://github.com/clymb3r/PowerShell/blob/master/Invoke-ReflectivePEInjection/Invoke-ReflectivePEInjection.ps  
-需要在最后添加一句代码以调用上述dll文件，直接下载 三好学生 修改好的[HookPasswordChangeNotify.ps1]()。  
+需要在最后添加一句代码以调用上述dll文件，直接下载 三好学生 修改好的[3gstudent/HookPasswordChangeNotify.ps1](https://github.com/3gstudent/Hook-PasswordChangeNotify)。  
 
 3、Hook PasswordChangeNotify  
 将HookPasswordChangeNotify.ps1和HookPasswordChange.dll上传至域控的同一目录下。  
@@ -106,7 +106,7 @@ PowerShell.exe -ExecutionPolicy Bypass -File HookPasswordChangeNotify.ps1
 当域用户修改密码后，明文密码将被记录在域控的C:\windows\temp\XXX.tmp中。  
 
 4、远程获取明文密码  
-可以修改DLL，使获取的明文密码直接上传至服务器，已经有人写好了DLL，在这里：[kevien/PasswordchangeNotify]()。  
+可以修改DLL，使获取的明文密码直接上传至服务器，已经有人写好了DLL，在这里：[kevien/PasswordchangeNotify](https://github.com/kevien/PasswordchangeNotify)。  
 
 5、实际使用  
 在使用过程中可能会被杀软拦截，在测试过程中发现，Windows Defender会识别将HookPasswordChangeNotify.ps1识别为恶意脚本而直接隔离，其他杀软未测试。  
