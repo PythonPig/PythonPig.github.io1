@@ -127,14 +127,15 @@ function Remove-Persistence{
 
 function Check-Persistence{
     
-    Get-WmiObject -Namespace root/subscription -Class __EventFilter
+    Write-Host "-------------------------Event Filter-----------------------------------"
+    # Event Filter
+    Get-WMIObject -Namespace root\Subscription -Class __EventFilter -Filter "Name = '$EventConsumerName'"
 
-    Write-Host "----------------------------------------------------------"
-    Get-WmiObject -Namespace root/subscription -Class CommandLineEventConsumer
+    Write-Host "-------------------------Event Consumer---------------------------------"
+    # Event Consumer
+    Get-WMIObject -Namespace root\Subscription -Class CommandLineEventConsumer -Filter "Name = '$EventConsumerName'"
 
-    Write-Host "----------------------------------------------------------"
-    Get-WmiObject -Namespace root/subscription -Class __FilterToConsumerBinding
-	
-    Write-Host "----------------------------------------------------------"
-    Get-WmiObject -Class __IntervalTimerInstruction
+    Write-Host "-------------------------Binding----------------------------------------"
+    # Binding
+    Get-WMIObject -Namespace root\Subscription -Class __FilterToConsumerBinding -Filter "__Path LIKE '%$EventConsumerName%'" 
 }
