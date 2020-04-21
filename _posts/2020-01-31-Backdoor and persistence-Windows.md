@@ -165,7 +165,7 @@ Remove-WMIBackdoor PWN
 ```
 
 ### \#0x03 SSH反连后门
-目标机器上启动SSH Server，使用SSH Client将SSH Server的端口反向代理到VPS。  
+目标机器上启动SSH Server，使用SSH Client或frp将SSH Server的端口反向代理到VPS。  
 该方法需借助计划任务或者WMI Persistence保证系统重启后仍有效。  
 具体方法不再这里讨论了。  
 
