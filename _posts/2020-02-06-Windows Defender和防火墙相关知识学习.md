@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Windows Defender相关知识学习
+title: Windows Defender和防火墙相关知识学习
 date: 2020-02-06 23:30:00
 tags: Windows-Defender
 categories: hack 
@@ -9,7 +9,7 @@ author: PythonPig
 * content
 {:toc}
 
-记录Windows Defender相关知识和操作。  
+记录Windows Defender和防火墙相关知识和操作。  
 
 {:refdef: style="text-align: center;"}
 ![windefend](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Windows%20Defender相关知识学习/Windows-Defender.jpg?raw=true) 
@@ -20,7 +20,7 @@ author: PythonPig
 
 图片来源于https://www.techzine.be/nieuws/security/45304/windows-defender-faalt-malware-scan-na-enkele-seconden/  
 
-### \#0x00 相关操作记录
+### \#0x00 Windows Defender相关操作记录
 在渗透测试过程中，经常遇到Windows Defender，最近通过阅读微软官方文档找到了一些通过powershell操作WinDefend的方法。  
 渗透测试时，先获取并保存目标原有配置，然后添加ExclusionPath或ExclusionProcess，操作完成后恢复原有配置。  
 
@@ -52,7 +52,46 @@ powershell.exe Set-MpPreference -DisableRealtimeMonitoring $true
 ```
 powershell.exe Set-MpPreference -DisableRealtimeMonitoring $false
 ```
+### \#0x01 Windows 防火墙相关操作记录
 
+1、查看防火墙状态  
+```
+Netsh Advfirewall show allprofiles
+
+Netsh Advfirewall show domainprofile
+Netsh Advfirewall show Privateprofile
+Netsh Advfirewall show Publicprofile
+
+netsh firewall show state
+```
+2、开启防火墙
+```
+netsh firewall set opmode mode=enable
+或
+netsh advfirewall set allprofiles state on
+```
+3、关闭防火墙
+```
+netsh firewall set opmode mode=disable
+或
+netsh advfirewall set allprofiles state off
+```
+4、关闭domainprofile防火墙
+```
+netsh advfirewall set domainprofile state off
+```
+5、关闭tcp 445端口
+```
+netsh advfirewall firewall add rule name=”deny tcp 445″ dir=in protocol=tcp localport=445 action=block
+```
+6、打开tcp 445端口
+```
+netsh advfirewall firewall add rule name="allow tcp 445" dir=in localport=445 protocol=tcp action=allow
+```
+7、设置默认inbound和outbound策略
+```
+netsh advfirewall set allprofiles firewallpolicy allowinbound,allowoutbound
+```
 
 ### 参考
 * [Microsoft Docs - Defender](https://docs.microsoft.com/en-us/powershell/module/defender/?view=win10-ps)
