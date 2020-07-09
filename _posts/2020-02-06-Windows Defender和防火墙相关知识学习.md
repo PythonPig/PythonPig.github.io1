@@ -62,7 +62,7 @@ Netsh Advfirewall show domainprofile
 Netsh Advfirewall show Privateprofile
 Netsh Advfirewall show Publicprofile
 
-netsh firewall show state
+netsh firewall show state  //查看添加的规则
 ```
 2、开启防火墙
 ```
