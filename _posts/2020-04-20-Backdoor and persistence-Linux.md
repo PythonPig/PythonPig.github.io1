@@ -12,7 +12,7 @@ author: PythonPig
 这篇文章主要记录自己使用的一些Linux后门和权限维持的方法，大部分来自网络，同时会记录一些自己在使用过程中踩的坑，方法会持续更新。  
 
 {:refdef: style="text-align: center;"}
-![backdoor]()
+![backdoor](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Backdoor%20and%20persistence-Linux/backdoor.jpg?raw=true)
 {: refdef}   
 
 
@@ -24,9 +24,3 @@ author: PythonPig
 
 ### 参考
 * [droberson/icmp-backdoor](https://github.com/droberson/icmp-backdoor)  
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
