@@ -169,6 +169,10 @@ Remove-WMIBackdoor PWN
 该方法需借助计划任务或者WMI Persistence保证系统重启后仍有效。  
 具体方法不再这里讨论了。  
 
+### \#0x04 WinRM后门
+对于部署了WEB服务的目标来说可以通过把WinRM的端口复用到80或443端口，将流量WS-MAN协议流量隐藏在正常的WEB流量中，可有效绕过防火墙。  
+参考[]()  
+
 ### 参考
 * [渗透技巧——Windows系统的帐户隐藏](https://3gstudent.github.io/3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Windows%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B8%90%E6%88%B7%E9%9A%90%E8%97%8F/)  
 * [windows后渗透维权](http://www.landq.cn/2019/09/01/windows%E5%90%8E%E6%B8%97%E9%80%8F%E7%BB%B4%E6%9D%83/)  
