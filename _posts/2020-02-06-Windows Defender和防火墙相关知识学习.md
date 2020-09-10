@@ -92,7 +92,10 @@ netsh advfirewall firewall add rule name="allow tcp 445" dir=in localport=445 pr
 ```
 netsh advfirewall set allprofiles firewallpolicy allowinbound,allowoutbound
 ```
-
+8、删除规则  
+```
+netsh advfirewall firewall delete rule name=test
+```
 ### 参考
 * [Microsoft Docs - Defender](https://docs.microsoft.com/en-us/powershell/module/defender/?view=win10-ps)
 * [HOW TO DISABLE AND CONFIGURE WINDOWS DEFENDER ON WINDOWS SERVER 2016 USING POWERSHELL](https://www.thomasmaurer.ch/2016/07/how-to-disable-and-configure-windows-defender-on-windows-server-2016-using-powershell/)  
