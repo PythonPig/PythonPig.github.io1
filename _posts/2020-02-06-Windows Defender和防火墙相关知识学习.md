@@ -36,7 +36,7 @@ sc query windefend
 
 查看状态
 ```
-Get-MpComputerStatus
+powershell.exe Get-MpComputerStatus
 ```
 
 添加exclusion路径
@@ -68,6 +68,12 @@ powershell.exe Set-MpPreference -DisableRealtimeMonitoring $true
 ```
 powershell.exe Set-MpPreference -DisableRealtimeMonitoring $false
 ```
+
+彻底关闭winden，重启生效
+```
+New-ItemProperty -Path “HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender” -Name DisableAntiSpyware -Value 1 -PropertyType DWORD -Force
+```
+
 ### \#0x01 Windows 防火墙相关操作记录
 
 1、查看防火墙状态  
