@@ -8,7 +8,7 @@
 # Site settings
 title: PythonPig's Blog
 brief-intro: 移动通信  TCP/IP  Hacker  后渗透  伪码农
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/archive/" # the subpath of your site, e.g. /blog
 url: "https://pythonpig.github.io" # the base hostname & protocol for your site
 
 permalink: /:year/:month/:day/:title/
@@ -55,7 +55,7 @@ tag_dir: tag/
 # excerpt
 excerpt_separator: "\n\n\n\n"
 
-url: "https://pythonpig.github.io/archive/"
+url: "https://pythonpig.github.io"
 
 #plugins: # previously gems
 #  - jekyll-feed
