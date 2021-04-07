@@ -55,7 +55,7 @@ tag_dir: tag/
 # excerpt
 excerpt_separator: "\n\n\n\n"
 
-url: "https://pythonpig.github.io"
+url: "https://pythonpig.github.io/archive/"
 
 #plugins: # previously gems
 #  - jekyll-feed
