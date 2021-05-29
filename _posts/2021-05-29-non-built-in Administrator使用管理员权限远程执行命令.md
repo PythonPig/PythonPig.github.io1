@@ -9,7 +9,6 @@ author: PythonPig
 * content
 {:toc}
 
-在域渗透的时候经常使用impacket的secretsdump.py来获取域内主机甚至域控上的hash值，secretsdump可以通过多种方法获取{sam, secrets, cached and ntds}中保存的用户凭证。 
 最近在使用impacket的wmiexec.py对非域内主机进行渗透时遇到了rpc_s_access_denied、WBEM_E_ACCESS_DENIED的问题，同时发现新添加的管理员对系统默认的共享文件夹（admin$和c$）没有远程访问权限。为了解决上述问题，花了些时间找了下原因，这里做个记录。   
   
 {:refdef: style="text-align: center;"}
