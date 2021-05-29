@@ -2,7 +2,7 @@
 layout: post
 title: non-built-in Administrator使用管理员权限远程执行命令
 date: 2021-05-29 23:30:00
-tags: privilege_escalation
+tags: 
 categories: hack 
 author: PythonPig
 ---
