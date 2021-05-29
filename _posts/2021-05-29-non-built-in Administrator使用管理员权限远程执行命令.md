@@ -9,7 +9,7 @@ author: PythonPig
 * content
 {:toc}
 
-最近在使用impacket的wmiexec.py对非域内主机进行渗透时遇到了rpc_s_access_denied、WBEM_E_ACCESS_DENIED的问题，同时发现新添加的管理员对系统默认的共享文件夹（admin$和c$）没有远程访问权限。为了解决上述问题，花了些时间找了下原因，这里做个记录。   
+最近在使用impacket的wmiexec.py对非域内主机进行渗透时遇到了rpc_s_access_denied、WBEM_E_ACCESS_DENIED的问题，同时发现新添加的管理员对系统默认共享文件夹（admin$和c$）没有远程访问权限。为了解决上述问题，花了些时间找了下原因，这里做个记录。   
   
 {:refdef: style="text-align: center;"}
 ![access denied](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/non-built-in%20Administrator使用管理员权限远程执行命令/access_denied.jpeg?raw=true)
@@ -21,8 +21,10 @@ author: PythonPig
 
 图片来源于https://www.login-as.no/win10-uac-remote-restrictions/
 
-根据用户所属的用户组的不同可以将用户分为built-in Administrator、non-built-in administrative accounts、non-administrative accounts。  
-built-in Administrator是系统本身自带的管理员用户，其SID为500，具有系统默认的管理员权限；non-built-in administrative accounts是新添加的管理员用户，是administrators组中的用户，其SID非500;non-administrative accounts是不在administrators组中的用户，即非管理员用户。  
+计算机本地用户根据所属的用户组的不同可以分为built-in Administrator、non-built-in administrative accounts、non-administrative accounts。  
+built-in Administrator是系统本身自带的管理员用户，其SID为500，具有系统默认的管理员权限；  
+non-built-in administrative accounts是非系统默认管理员，如新添加的管理员用户，是administrators组中的用户，其SID不是500;  
+non-administrative accounts是不在administrators组中的用户，即非管理员用户。  
 
 下面主要针对non-built-in administrative accounts、non-administrative accounts 2类用户在横向渗透中使用sc类(psexec,scshell)、wmi类(wmiexec.wmic)、smb类(smbexec,ipc,smbclient)、winrm类等工具可能遇到的权限问题进行讨论。  
 
@@ -64,16 +66,18 @@ run dcomcnfg > Component Services > Computers > My Computer > (right click) prop
 ```
 3、命令执行无回显
 出现这个问题的原因是非管理员用户没有读写admin$的权限。  
-因为wmiexec.py回显是通过将结果写入ADMIN$然后读回文件内容实现的，若用户没有读写ADMIN$的权限，则wmiexec.py无法顺利执行。  
+因为wmiexec.py回显是通过将结果写入ADMIN$中的文件然后读回文件内容实现的，若用户没有读写ADMIN$的权限，则wmiexec.py无法顺利执行。  
 解决该问题有两种方法  
 第一种是使用-nooutput参数，使用该参数后wmiexec.py可以顺利完成命令执行，但是无回显。  
-第二种方法是寻找或新建一个隐蔽的文件夹并赋予新建用户读写权限，如：  
+第二种方法是寻找或新建一个隐蔽的文件夹并赋予新建用户读写权限，开启文件共享的方法如下：  
 ```
 properties > sharing > network file and folder sharing 中给admin赋予权限并共享
 properties > sharing > advanced sharing中可以修改共享名字，如改为public
 ```
-使用时的命令如下：
+使用wmiexec.py时需指定共享文件夹，命令如下：
+```
 wmiexec.py admin@10.10.10.10 -share public
+```
 这种方法虽然可以使用wmiexec.py执行部分系统命令，但是由于用户是非管理员用户，其权限较低，对于高权限的操作和目录访问均受到限制。
 
 
