@@ -11,7 +11,7 @@ author: PythonPig
 
 这篇文章的主要记录iptables的一些常用命令，便于翻阅。
 {:refdef: style="text-align: center;"}
-![iptables]() 
+![iptables](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Linux%20iptables使用记录/iptables.jpeg?raw=true) 
 {: refdef}
 
 
