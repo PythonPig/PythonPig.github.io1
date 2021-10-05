@@ -64,18 +64,16 @@ iptables -t nat -D POSTROUTING 3
 iptables -t nat -D PREROUTING -p udp -d 192.168.81.2 -s 192.168.81.1 --dport 6666  -j DNAT --to 192.168.81.2:7777
 ```
 
-修改到达本机特定数据包的目的端口
-```
-所有到达本机6666端口的UDP数据包全部转发至本机的7777端口
-iptables -t nat -A PREROUTING -p udp -d 192.168.81.2 --dport 6666  -j DNAT --to 192.168.81.2:7777
-源IP为192.168.81.1且端口为6666的UDP数据包转发至本机的7777端口
-iptables -t nat -A PREROUTING -p udp -d 192.168.81.2 -s 192.168.81.1 --dport 6666  -j DNAT --to 192.168.81.2:7777
-```
-
 DNAT
 ```
 由eth1流入且目的为61.240.149.149:80的TCP数据包的目的地址改为192.168.10.6:80
 iptables -t nat -A PREROUTING -i eth1 -p tcp -d 61.240.149.149 --dport 80 -j DNAT --to-destination 192.168.10.6:80
+
+所有到达本机6666端口的UDP数据包全部转发至本机的7777端口
+iptables -t nat -A PREROUTING -p udp -d 192.168.81.2 --dport 6666  -j DNAT --to 192.168.81.2:7777
+
+源IP为192.168.81.1且端口为6666的UDP数据包转发至本机的7777端口
+iptables -t nat -A PREROUTING -p udp -d 192.168.81.2 -s 192.168.81.1 --dport 6666  -j DNAT --to 192.168.81.2:7777
 
 修改数据包的目的端口
 iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080
