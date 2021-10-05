@@ -9,30 +9,34 @@ author: PythonPig
 * content
 {:toc}
 
-这篇文章的主要记录Linux iptables的一些常用命令，便于翻阅。
+这篇文章的主要记录iptables的一些常用命令，便于翻阅。
+{:refdef: style="text-align: center;"}
+![iptables]() 
+{: refdef}
 
 
 
 
+图片来源于https://huyangjia.com/computer-technology/899.html
 ### \#0x00 iptables基础知识
 
 {:refdef: style="text-align: center;"}
-![数据包流向]() 
+![数据包流向](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Linux%20iptables使用记录/数据包流向.png?raw=true) 
 {: refdef}
 
-根据上图，数据包的流向：
-到本机某进程的报文：PREROUTING --> INPUT
-由本机转发的报文：PREROUTING --> FORWARD --> POSTROUTING
-由本机的某进程发出报文（通常为响应报文）：OUTPUT --> POSTROUTING
+根据上图，数据包的流向：  
+到本机某进程的报文：PREROUTING --> INPUT  
+由本机转发的报文：PREROUTING --> FORWARD --> POSTROUTING  
+由本机的某进程发出报文（通常为响应报文）：OUTPUT --> POSTROUTING  
 
-4表5链：表是相似规则的合集，把链中具有相似性的规则整合到一起形成一张表
+4表5链：表是相似规则的合集，把链中具有相似性的规则整合到一起形成一张表 
 ```
 filter表、nat表、mangle表、raw表
 PREROUTING链、INPUT链、FORWARD链、OUTPUT链、POSTROUTING链
 ```
 
 {:refdef: style="text-align: center;"}
-![链与表的关系]() 
+![链与表的关系](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/Linux%20iptables使用记录/链与表的关系.png?raw=true) 
 {: refdef}
 
 以prerouting链为例，prerouting链中的规则存放于三张表中，而这三张表中的规则执行的优先级如下：  
