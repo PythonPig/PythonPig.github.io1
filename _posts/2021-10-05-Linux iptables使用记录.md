@@ -64,6 +64,22 @@ iptables -t nat -D POSTROUTING 3
 iptables -t nat -D PREROUTING -p udp -d 192.168.81.2 -s 192.168.81.1 --dport 6666  -j DNAT --to 192.168.81.2:7777
 ```
 
+禁止访问
+```
+禁止特定ip访问22端口
+iptables -I INPUT -s 10.10.10.10 -p tcp --dport 22 -j DROP
+
+禁止特定ip访问
+iptables -I INPUT -s 10.10.10.10 -j DROP
+```
+
+允许访问
+```
+iptables -I INPUT -p tcp --dport 80 -j DROP
+iptables -I INPUT -s 192.168.1.0/24 -p tcp --dport 80 -j ACCEPT
+```
+
+
 DNAT
 ```
 由eth1流入且目的为61.240.149.149:80的TCP数据包的目的地址改为192.168.10.6:80
