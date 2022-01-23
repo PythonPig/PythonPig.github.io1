@@ -15,7 +15,7 @@ author: PythonPig
 {: refdef}
 
 
-![iptables](../images/suid shell/1.jpg) 
+
 
 图片来源于https://huyangjia.com/computer-technology/899.html
 ### \#0x00 iptables基础知识
