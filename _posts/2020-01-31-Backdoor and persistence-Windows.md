@@ -27,7 +27,7 @@ There is no local account on dc(domain controller)
 Please understand that when a Windows server is promoted to a domain controller, the server no longer uses the local account (Security Accounts Manager [SAM]) database during normal operations to store users and groups. When the promotion is complete, the new domain controller has a copy of the Active Directory database in which it stores users, groups, and computer accounts. The SAM database is present, but it is inaccessible when the server is running in Normal mode. The only time that the local SAM database is used is when you boot into Directory Services Restore mode or the Recovery Console. 
 If this new domain controller is the first domain controller in a new domain, the local SAM database that the new domain controller contained as a stand-alone server is migrated to the Active Directory database that is created during the promotion. All of the local user accounts that the local SAM database contained when it had been a stand-alone server are migrated from the local SAM database to the Active Directory database. In addition, any permissions that had been assigned to the local users, such as, NTFS permissions, are retained when the users are migrated to the Active Directory database.
  
-```  
+```
 若域控需要添加隐藏用户，可直接添加以$结尾的用户，net user不显示该用户，但在“AD用户和计算机”和“控制面板用户管理”可以看到该用户。  
 ```
 net user test$ !QAZ2wsx#EDC /add            添加的是普通域用户，“AD用户和计算机”可见，“控制面板用户管理”(管理本地用户)不可见
@@ -35,11 +35,11 @@ net localgroup administrators test$ /add    加入本地管理员组，“AD用�
 ```
 
 1、分配注册表权限  
- 
+
 因为默认情况下，只用nt authority\system可以编辑HKEY_LOCAL_MACHINE\SAM\SAM，因此需要给administrator分配权限，regini的使用可以查看使用帮助。  
 ```
 regini up.ini
-```    
+```
 up.ini的内容如下:  
 ```
 HKEY_LOCAL_MACHINE\SAM [1 17]

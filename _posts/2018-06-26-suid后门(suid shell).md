@@ -55,7 +55,7 @@ if(isset($_GET['path']) && isset($_GET['cmd'])){
  }  
 }
 >
-```  
+```
 
 访问http://x.x.x.x/exploit.php?path=/tmp/bashwrap&cmd=id即可以root的权限执行命令id  
 
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
-``` 
+```
 
 然后在低权限的web shell命令执行处执行：./bashwrap beroot cat /etc/shadow即可以root权限执行cat /etc/shadow  
 
@@ -102,12 +102,13 @@ int main(int argc, char *argv[])
 执行ls -l /usr/bin/passwd 可以看到     
 ![2](https://github.com/PythonPig/PythonPig.github.io/blob/master/images/suid%20shell/2.jpg?raw=true)  
 在文件所有者的x权限上都出现了s权限，那么这个特殊权限的特殊性的作用是什么呢？  
+
 ```
 1、SUID权限仅对二进制程序有效。  
 2、执行者对于该程序需要具有x的可执行权限。 
 3、本权限仅在执行该程序的过程中有效。  
 4、执行者将具有该程序拥有者的权限。  
-``` 
+```
 
 SUID的关键作用体现在第四句，SUID的目的就是：让本来没有相应权限的用户运行这个程序时，可以访问他没有权限访问的资源。  
 ### \#0x04 参考

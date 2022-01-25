@@ -6,8 +6,8 @@ tags: linux编程
 categories: 程序/代码
 author: PythonPig
 ---
-* content
-{:toc}
+[toc]
+
 
 在之前的项目中，编译较复杂开源项目或安装软件时经常使用./config、make、make install等命令，用的比较多比较熟了，但没有对其过程进行深入的学习，目前手里的项目需要用到相关的东西，就在这里简单的了解一下使用autoconf和automake生成makefile的过程。  
 {:refdef: style="text-align: center;"}
@@ -245,8 +245,8 @@ swapincludedir=$(includedir)/swap
 swapinclude_HEADERS=$(top_srcdir)/src/include/swap.h
 ```
 最后两行的意思是将swap.h安装到${prefix}/include /swap目录下。  
-  
-    
+
+
 ### 生成可执行文件的情况#
 接下来，对于可执行文件类型的情况，我们将讨论如何写Makefile.am，对于编译apple/core目录下的文件，我们写成的Makefile.am如下所示：  
 ```
